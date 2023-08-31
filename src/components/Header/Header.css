@@ -1,0 +1,43 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 74px;
+}
+
+.header__logo {
+  height: 38px;
+  width: 38px;
+}
+
+.header__nav-right-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+}
+
+.header__link {
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  color: #FFF;
+  text-decoration: none;
+}
+
+.header__link_highlighted {
+  padding: 8px 20px;
+  color: #000;
+  border-radius: 3px;
+  background: #3DDC84;
+}
+
+.header__nav-center-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}

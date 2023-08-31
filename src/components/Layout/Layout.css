@@ -1,0 +1,21 @@
+.layout {
+  margin: 0 auto;
+}
+
+.layout_highlighted {
+  background-color: #073042;
+}
+
+.layout-inner {
+  margin: 0 auto;
+  padding: 0 70px;
+  max-width: 1140px;
+}
+
+@media screen and (max-width: 1024px) {
+  .layout-inner {
+    margin: 0 auto;
+    padding: 0 30px;
+    max-width: 884px;
+  }
+}

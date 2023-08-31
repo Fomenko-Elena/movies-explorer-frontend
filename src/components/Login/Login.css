@@ -1,0 +1,7 @@
+.login__submit-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  padding-top: 179px;
+}

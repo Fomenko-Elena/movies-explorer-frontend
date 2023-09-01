@@ -1,0 +1,67 @@
+.search {
+  display: flex;
+  flex-direction: column;
+  gap: 32px 0;
+  padding: 70px 0 48px 0;
+}
+
+.search__phrase {
+  position: relative;
+  width: 100%;
+}
+
+.search__text {
+  width: 100%;
+  color: #8B8B8B;
+  font-size: 28px;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  border-bottom: #424242 1px solid;
+  padding-bottom: 13px;
+}
+
+.search__button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  width: 80px;
+  height: 34px;
+  border: none;
+  background: url(./../../images/find.svg) no-repeat;
+  background-position: 100% 0;
+  cursor: pointer;
+}
+
+.search__options {
+  display: flex;
+  flex-direction: row;
+  gap: 0 14px;
+}
+
+.search__short {
+  appearance: none;
+  width: 36px;
+  height: 20px;
+  border: none;
+  line-height: 18px;
+
+  background: url(./../../images/smalltumb.svg) no-repeat;
+  background-size: 100% auto;
+  background-position-y: -1px;
+}
+
+.search__short:checked {
+  background: url(./../../images/smalltumboff.svg) no-repeat;
+  background-size: 100% auto;
+  background-position: -4px -1px;
+}
+
+.search__short-label {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+  padding: 0;
+  margin: 0;
+}

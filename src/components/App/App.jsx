@@ -9,6 +9,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import { noUser } from '../../utils/constants'
 import './App.css'
 import Profile from '../Profile/Profile'
+import Movies from '../Movies/Movies'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(noUser)
@@ -52,21 +53,25 @@ function App() {
 
         <Routes>
           <Route
-            path="/"
-            element={<Main/>}
+            path="/" 
+            element={<Main/>} 
           />
-        <Route
-          path="/signup"
-          element={<Register onRegister={handleRegister}/>}
-        />
-        <Route
-          path="/signin"
-          element={<Login onLogin={handleLogin}/>}
-        />
-        <Route
-          path="/profile"
-          element={<Profile onLogoff={handleLogoff} user={currentUser}/>}
-        />
+          <Route
+            path="/movies" 
+            element={<Movies/>} 
+          />
+          <Route
+            path="/signup"
+            element={<Register onRegister={handleRegister}/>}
+          />
+          <Route
+            path="/signin"
+            element={<Login onLogin={handleLogin}/>}
+          />
+          <Route
+            path="/profile"
+            element={<Profile onLogoff={handleLogoff} user={currentUser}/>}
+          />
         </Routes>
 
         {isHeaderFooterVisible() && (<Footer/>)}

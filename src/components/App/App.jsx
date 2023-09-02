@@ -10,6 +10,7 @@ import { noUser } from '../../utils/constants'
 import './App.css'
 import Profile from '../Profile/Profile'
 import Movies from '../Movies/Movies'
+import SavedMovies from '../SavedMovies/SavedMovies'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(noUser)
@@ -59,6 +60,10 @@ function App() {
           <Route
             path="/movies" 
             element={<Movies/>} 
+          />
+          <Route
+            path="/saved-movies" 
+            element={<SavedMovies/>} 
           />
           <Route
             path="/signup"

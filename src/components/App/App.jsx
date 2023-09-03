@@ -6,7 +6,7 @@ import Main from '../Main/Main'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
-import { noUser } from '../../utils/constants'
+import { LayoutHighlight, noUser } from '../../utils/constants'
 import './App.css'
 import Profile from '../Profile/Profile'
 import Movies from '../Movies/Movies'
@@ -47,10 +47,15 @@ function App() {
     return headerPaths.includes(location.pathname);
   }
 
+  function getHeaderHighlight() {
+    if (location.pathname === "/") return LayoutHighlight.Blue;
+    return LayoutHighlight.Default
+  }
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
-        {isHeaderFooterVisible() && <Header onSignOut={handleSignOut}/>}
+        {isHeaderFooterVisible() && <Header highlight={getHeaderHighlight()} onSignOut={handleSignOut}/>}
 
         <Routes>
           <Route

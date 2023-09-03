@@ -13,7 +13,7 @@
 }
 
 .card-footer {
-  padding: 14px 12px;
+  padding: 10px 12px 14px 12px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -25,14 +25,10 @@
   gap: 10px;
 }
 
-.card-footer-right {
-  position: relative;
-  top: -3px;
-}
-
 .card-description {
   font-size: 13px;
   font-weight: 500;
+  line-height: normal;
   padding: 0;
   margin: 0;
   max-width: 206px;
@@ -45,6 +41,7 @@
   color: #8B8B8B;
   font-size: 11px;
   font-weight: 400;
+  line-height: normal;
   padding: 0;
   margin: 0;
 }

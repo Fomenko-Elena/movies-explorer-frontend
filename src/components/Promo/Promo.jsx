@@ -7,7 +7,7 @@ function Promo(props) {
     <Layout isHighlighted={true}>
       <section className="promo">
         <div className="promo__left-pane">
-          <h1 className="promo__header">Учебный проект студента факультета Веб-разработки.</h1>
+          <h1 className="promo__header">Учебный проект студента факультета <span className="promo__header_nowrap">Веб-разработки</span>.</h1>
           <p className="promo__info">Листайте ниже, чтобы узнать больше про этот проект и его создателя.</p>
         </div>
         <div className="promo__right-pane">

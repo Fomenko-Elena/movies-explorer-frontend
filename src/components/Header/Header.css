@@ -19,6 +19,9 @@
 }
 
 .header__link {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
   font-family: Inter;
   font-size: 12px;
   font-style: normal;
@@ -26,6 +29,35 @@
   line-height: 16px;
   color: #FFF;
   text-decoration: none;
+}
+
+.header__link_auth {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.header__link-account {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 7px;
+  width: 32px;
+  height: 26px;
+  border-radius: 50px;
+  background: #313131;
+}
+
+.header__link-account-image {
+  width: 12px;
+  height: 11px;
+  mask: url(./../../images/account.svg) no-repeat;
+  background-size: 10.38px 10.67px;
+  background-color: #FFF;
+}
+
+.header__link-account_blue {
+  background: #0F4157;
 }
 
 .header__link_highlighted {
@@ -40,4 +72,5 @@
   flex-direction: row;
   align-items: center;
   gap: 16px;
+  padding-left: 54px;
 }

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import logoPath from '../../images/logo.svg';
 import { useContext, useEffect, useState } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { noUser } from '../../utils/constants';
+import { LayoutHighlight, noUser } from '../../utils/constants';
 import './Header.css'
 import Layout from '../Layout/Layout';
 
@@ -22,10 +22,17 @@ function Header(props) {
       }
     }, [])
 
+    function getAccountHighlightClassName() {
+      switch(props.highlight) {
+        case LayoutHighlight.Blue: return "header__link-account header__link-account_blue";
+        default: return "header__link-account";
+      }
+    }
+
     return (
-      <Layout isHighlighted={true}>
+      <Layout highlight={props.highlight}>
         <header className="header">
-          <Link className="header__logo-link">
+          <Link className="header__logo-link" to="/">
               <img className="header__logo" alt="Лого" src={logoPath}/>
           </Link>
           {currentUser === noUser && (
@@ -37,11 +44,16 @@ function Header(props) {
           {currentUser !== noUser && (
             <>
               <nav className="header__nav-center-bar">
-                <Link className="header__link" to="/movies">Фильмы</Link>
-                <Link className="header__link" to="/saved-movies">Сохраненные фильмы</Link>
+                <Link className="header__link header__link_auth" to="/movies">Фильмы</Link>
+                <Link className="header__link header__link_auth" to="/saved-movies">Сохраненные фильмы</Link>
               </nav>
               <nav className="header__nav-right-bar">
-                <Link className="header__link" to="/profile">Аккаунт</Link>
+                <Link className="header__link header__link_auth" to="/profile">
+                  Аккаунт
+                  <div className={getAccountHighlightClassName()}>
+                    <div className="header__link-account-image"></div>
+                  </div>
+                </Link>
               </nav>
             </>
           )}

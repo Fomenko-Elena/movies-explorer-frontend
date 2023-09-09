@@ -6,7 +6,7 @@ import Main from '../Main/Main'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
-import { LayoutHighlight, noUser } from '../../utils/constants'
+import { ComponentStatus, LayoutHighlight, noUser, predefinedMovies } from '../../utils/constants'
 import './App.css'
 import Profile from '../Profile/Profile'
 import Movies from '../Movies/Movies'
@@ -17,6 +17,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState(noUser)
   const [menuVisible, setMenuVisible] = useState(false)
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  const [moviesStatus, setMoviesStatus] = useState(ComponentStatus.Loading)
+  const [filteredMovies, setFilteredMovies] = useState([])
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -73,6 +75,16 @@ function App() {
     setMenuVisible(false)
   }
 
+  function handleFilterMovies() {
+    if (filteredMovies.length) return;
+
+    setMoviesStatus(ComponentStatus.Loading)
+    setTimeout(() => {
+      setMoviesStatus(ComponentStatus.Successed);
+      setFilteredMovies(predefinedMovies);
+    }, 500)
+  }
+
   function isHeaderFooterVisible() {
     return headerPaths.includes(location.pathname);
   }
@@ -94,7 +106,7 @@ function App() {
           />
           <Route
             path="/movies" 
-            element={<Movies/>} 
+            element={<Movies OnFilter={handleFilterMovies} componentStatus={moviesStatus} cards={filteredMovies}/>} 
           />
           <Route
             path="/saved-movies" 

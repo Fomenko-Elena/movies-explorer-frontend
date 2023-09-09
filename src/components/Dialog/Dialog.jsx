@@ -5,7 +5,7 @@ function Dialog(props) {
   return (
     <Layout>
       <section className="dialog">
-        <form className={`dialog__form ${props.formClass}`} name="dialog_form" noValidate onSubmit={props.onSubmit}>
+        <form className={`dialog__form ${props.formClass}`} name="dialog_form" onSubmit={props.onSubmit}>
           {props.children}
         </form>
       </section>

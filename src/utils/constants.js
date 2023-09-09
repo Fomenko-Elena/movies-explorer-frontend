@@ -8,3 +8,9 @@ export const LayoutHighlight = {
   Default: '',
   Blue: 'blue',
 }
+
+export const nameValidationSettiings = {
+  required: true,
+  minLength: 2,
+  maxLength: 30,
+}

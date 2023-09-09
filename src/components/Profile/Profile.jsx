@@ -1,58 +1,54 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Dialog from "../Dialog/Dialog"
-import { Link } from "react-router-dom";
 import "./Profile.css";
+import Input from "../Input/Input";
+import Inputs from "../Inputs/Inputs";
+import DialogHeader from "../DialogHeader/DialogHeader";
+import DialogSubmitSection from "../DialogSubmitSection/DialogSubmitSection";
+import { useForm } from "../../hooks/formHooks";
+import { nameValidationSettiings } from "../../utils/constants";
 
 function Profile(props) {
-  const [email, setEmail] = useState("")
-  const [name, setName] = useState("")
+  const [values, handleChange, setValues] = useForm()
 
   useEffect(() => {
-      setEmail(props.user.email);
-      setName(props.user.name);
+    setValues({
+      email: props.user.email,
+      name: props.user.name,
+    })
   }, [])
-
-  function handleEmailChange(e) {
-    setEmail(e.target.value);
-  }
-
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
 
   return (
     <Dialog formClass="dialog__form_wide" onSubmit={props.onSubmit}>
-      <h1 className="dialog__header dialog__header_wide">{`Привет, ${props.user.name}`}</h1>
-      
-      <div className="form__fields form__fields_wide">
-        <label for="name" className="form__input-label form__input-label_wide">Имя</label>
-        <input
-          className="form__input form__input_wide"
+      <DialogHeader header={`Привет, ${props.user.name}`} wide={true}/>
+      <Inputs wide={true}>
+        <Input
           name="name"
+          type="text"
+          label="Имя"
           placeholder="Имя"
-          value={name}
-          onChange={handleNameChange}
-        />
-        <span className="form__error form-error_wide name-error"></span>
-
+          value={values.name}
+          onChange={handleChange}
+          wide={true}
+          {...nameValidationSettiings} />
         <div className="profile__separator"></div>
-
-        <label for="email" className="form__input-label form__input-label_wide">E-mail</label>
-        <input
-          className="form__input form__input_wide"
-          type="email"
+        <Input
           name="email"
+          type="email"
+          label="Email"
           placeholder="Email"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        <span className="form__error form-error_wide email-error"></span>
-      </div>
-
-      <div className="profile__submit-section">
-        <button className="form__submit form__submit_wide" type="submit">Редактировать</button>
-        <Link className="profile__link" to="/signin">Выйти из аккаунта</Link>
-      </div>
+          value={values.email}
+          onChange={handleChange}
+          wide={true}
+          required={true} />
+      </Inputs>
+      <DialogSubmitSection
+        className="profile__submit-section"
+        wide={true}
+        submitText="Редактировать"
+        linkText="Выйти из аккаунта"
+        link="/signin"
+      />
     </Dialog>
   )
 }

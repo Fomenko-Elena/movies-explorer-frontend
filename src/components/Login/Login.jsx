@@ -1,74 +1,56 @@
-import { useEffect, useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { useEffect } from "react"
 import DialogWithLogo from "../DialogWithLogo/DialogWithLogo"
 import "./Login.css"
+import Input from "../Input/Input"
+import Inputs from "../Inputs/Inputs"
+import DialogSubmitSection from "../DialogSubmitSection/DialogSubmitSection"
+import { useForm } from "../../hooks/formHooks"
 
 function Login(props) {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-
-  const location = useLocation()
+  const [values, handleChange, setValues] = useForm()
 
   useEffect(() => {
-    setEmail("")
-    setPassword("")
+    setValues({
+      name: "",
+      password: "",
+    })
   }, [])
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    props.onLogin({
-      email: email,
-      password: password
-    })
-  }
-
-  function handleEmailChange(e) {
-    setEmail(e.target.value)
-  }
-
-  function handlePasswordChange(e) {
-    setPassword(e.target.value)
+    props.onLogin(values)
   }
 
   return (
     <DialogWithLogo header="Рады видеть!" onSubmit={handleSubmit}>
-      <div className="form__fields">
-        <div className="form__input-field">
-          <label for="email" className="form__input-label">E-mail</label>
-          <input
-            className="form__input"
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={email}
-            onChange={handleEmailChange}
-          />
-          <span className="form__error email-error"></span>
-        </div>
+      <Inputs>
+        <Input
+          name="email"
+          type="email"
+          label="Email"
+          placeholder="Email"
+          value={values.email}
+          onChange={handleChange}
+          wide={false}
+          required={true} />
 
-        <div className="form__input-field">
-          <label for="password" className="form__input-label">Пароль</label>
-          <input
-            className="form__input"
-            type="password"
-            name="password"
-            placeholder="Пароль"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-          <span className="form__error password-error">Что-то пошло не так</span>
-        </div>
-      </div>
-
-      <div className="login__submit-section">
-        <button className="form__submit" type="submit">Войти</button>
-        <p className="form__text">
-          Ещё не зарегистрированы?
-          <Link className="form__link" to="/signup">Регистрация</Link>
-        </p>
-      </div>
-
+        <Input
+          name="password"
+          type="password"
+          label="Пароль"
+          placeholder="Пароль"
+          value={values.password}
+          onChange={handleChange}
+          required={true} />
+      </Inputs>
+      <DialogSubmitSection
+        className="login__submit-section"
+        submitText="Войти"
+        notes="Ещё не зарегистрированы?"
+        linkText="Регистрация"
+        link="/signup"
+      />
     </DialogWithLogo>
   )
 }

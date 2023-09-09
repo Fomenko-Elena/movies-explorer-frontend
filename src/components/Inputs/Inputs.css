@@ -1,0 +1,13 @@
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inputs_wide {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: auto 16px 17px auto 16px;
+  gap: 0;
+  width: 410px;
+}

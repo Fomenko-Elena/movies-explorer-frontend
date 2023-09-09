@@ -25,97 +25,97 @@ function Movies(props) {
       <MoviesCardList isSelectionMode={true} more={true} cards={[
         {
           _id: "01",
-          url : film1Path,
+          trailerLink: film1Path,
           description: "33 слова о дизайне",
           duration: 120
         },
         {
           _id: "02",
-          url : film2Path,
+          trailerLink: film2Path,
           description: "33 слова о дизайне",
           duration: 125
         },
         {
           _id: "03",
-          url : film3Path,
+          trailerLink: film3Path,
           description: "33 слова о дизайне",
           duration: 120
         },
         {
           _id: "04",
-          url : film4Path,
+          trailerLink: film4Path,
           description: "33 слова о дизайне",
           duration: 40
         },
         {
           _id: "05",
-          url : film5Path,
+          trailerLink: film5Path,
           description: "33 слова о дизайне",
           duration: 120
         },
         {
           _id: "06",
-          url : film6Path,
+          trailerLink: film6Path,
           description: "33 слова о дизайне",
           duration: 120
         },
         {
           _id: "07",
-          url : film7Path,
+          trailerLink: film7Path,
           description: "33 слова о дизайне",
           duration: 120
         },
         {
           _id: "08",
-          url : film8Path,
+          trailerLink: film8Path,
           description: "33 слова о дизайне",
           duration: 120
         },
         {
           _id: "09",
-          url : film9Path,
+          trailerLink: film9Path,
           description: "33 слова о дизайне",
           duration: 120
         },
         {
           _id: "10",
-          url : film10Path,
+          trailerLink: film10Path,
           description: "33 слова о дизайне",
           duration: 120
         },
         {
           _id: "11",
-          url : film11Path,
+          trailerLink: film11Path,
           description: "33 слова о дизайне",
           duration: 120
         },
         {
           _id: "12",
-          url : film12Path,
+          trailerLink: film12Path,
           description: "33 слова о дизайне",
           duration: 120
         },
         {
           _id: "13",
-          url : film13Path,
+          trailerLink: film13Path,
           description: "33 слова о дизайне",
           duration: 120
         },
         {
           _id: "14",
-          url : film14Path,
+          trailerLink: film14Path,
           description: "33 слова о дизайне",
           duration: 120
         },
         {
           _id: "15",
-          url : film15Path,
+          trailerLink: film15Path,
           description: "33 слова о дизайне",
           duration: 120
         },
         {
           _id: "16",
-          url : film16Path,
+          trailerLink: film16Path,
           description: "33 слова о дизайне",
           duration: 120
         },

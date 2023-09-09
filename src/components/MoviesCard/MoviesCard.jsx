@@ -19,7 +19,7 @@ function MoviesCard(props) {
 
   return (
     <li className="card">
-      <img className="card-image" alt={props.data.description} src={props.data.url}></img>
+      <img className="card-image" alt={props.data.description} src={props.data.trailerLink}></img>
       <div className="card-footer">
         <div className="card-footer-left">
           <h2 className="card-description">{props.data.description}</h2>

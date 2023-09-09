@@ -12,19 +12,19 @@ function SavedMovies(props) {
       <MoviesCardList isSelectionMode={false} more={false} cards={[
         {
           _id: "01",
-          url : film1Path,
+          trailerLink: film1Path,
           description: "33 слова о дизайне 9304 14908 12049 103294 031249 ",
           duration: 120
         },
         {
           _id: "02",
-          url : film2Path,
+          trailerLink: film2Path,
           description: "33 слова о дизайне 9304 14908 12049 103294 031249 ",
           duration: 125
         },
         {
           _id: "03",
-          url : film3Path,
+          trailerLink: film3Path,
           description: "33 слова о дизайне 9304 14908 12049 103294 031249 ",
           duration: 120
         },

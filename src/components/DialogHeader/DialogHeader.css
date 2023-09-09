@@ -1,0 +1,12 @@
+.dialog__header {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+  padding: 40px 0;
+}
+
+.dialog__header_wide {
+  text-align: center;
+  padding: 4px 0 123px 0;
+}

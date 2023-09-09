@@ -6,6 +6,10 @@
   background-color: #073042;
 }
 
+.layout_gray {
+  background-color: #272727;
+}
+
 .layout-inner {
   margin: 0 auto;
   padding: 0 70px;

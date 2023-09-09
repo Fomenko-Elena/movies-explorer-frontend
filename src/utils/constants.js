@@ -24,6 +24,7 @@ export const noUser = {
 export const LayoutHighlight = {
   Default: '',
   Blue: 'blue',
+  Gray: 'gray',
 }
 
 export const nameValidationSettiings = {

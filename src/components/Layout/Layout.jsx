@@ -1,18 +1,18 @@
+import classNames from 'classnames';
 import { LayoutHighlight } from '../../utils/constants'
 import './Layout.css'
 
-function Layout(props) {
-  function getHighlightClassName() {
-    switch(props.highlight) {
-      case LayoutHighlight.Blue: return "layout layout_blue";
-      default: return "layout";
-    }
-  }
-
+function Layout({
+  highlight,
+  children,
+}) {
   return (
-    <div className={getHighlightClassName()}>
+    <div className={classNames('layout', {
+      'layout_blue': highlight === LayoutHighlight.Blue,
+      'layout_gray': highlight === LayoutHighlight.Gray,
+    })}>
       <div className='layout-inner'>
-        {props.children}
+        {children}
       </div>
     </div>
   )

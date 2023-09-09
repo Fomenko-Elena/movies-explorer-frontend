@@ -3,6 +3,7 @@
   flex-direction: column;
   margin: 100px 0;
   position: relative;
+  scroll-margin-block-start: 100px;
 }
 
 .about-project__header {

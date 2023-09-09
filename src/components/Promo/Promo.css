@@ -1,8 +1,12 @@
 .promo {
+  padding: 75px 0;
+}
+
+.promo_main {
   display: flex;
   flex-direction: row;
-  padding-top: 75px;
   gap: 190px;
+  padding-bottom: 84px;
 }
 
 .promo__landing_logo {
@@ -33,4 +37,21 @@
   max-width: 310px;
   padding: 36px 0 146px 0;
   margin: 0;
+}
+
+.promo_about {
+  color: #FFF;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  padding: 10px 20px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background-color: transparent;
+  transition: opacity 0.1s linear;
+}
+
+.promo_about:hover {
+  opacity: 0.8;
 }

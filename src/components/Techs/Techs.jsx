@@ -1,10 +1,11 @@
+import { LayoutHighlight } from "../../utils/constants"
 import Layout from "../Layout/Layout"
 import './Techs.css'
 
 
 function Techs(props) {
   return (
-    <Layout>
+    <Layout highlight={LayoutHighlight.Gray}>
       <section className='techs'>
         <div className="techs__header">
             <h1 className="techs__header-item">Технологии</h1>

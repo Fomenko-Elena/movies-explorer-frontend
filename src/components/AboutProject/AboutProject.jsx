@@ -1,10 +1,12 @@
 import Layout from "../Layout/Layout"
 import './AboutProject.css'
 
-function AboutProject(props) {
+function AboutProject({
+  forwardedRef,
+}) {
   return (
     <Layout>
-      <section className='about-project'>
+      <section ref={forwardedRef} className='about-project'>
         
         <div className="about-project__header">
           <h1 className="about-project__header-item">О проекте</h1>

@@ -74,3 +74,24 @@
   gap: 16px;
   padding-left: 54px;
 }
+
+.header__menu {
+  display: none;
+  width: 44px;
+  height: 44px;
+  background: url(./../../images/menu.svg) no-repeat;
+}
+
+@media screen and (max-width: 769px) {
+  .header__nav-center-bar {
+    display: none;
+  }
+
+  .header__link_auth {
+    display: none;
+  }
+
+  .header__menu {
+    display: block;
+  }
+}

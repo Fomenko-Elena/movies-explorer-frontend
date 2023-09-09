@@ -35,7 +35,6 @@ function Register(props) {
           value={values.name}
           onChange={handleChange}
           { ...nameValidationSettiings } />
-
         <Input
           name="email"
           type="email"

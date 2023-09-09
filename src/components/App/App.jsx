@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
@@ -11,13 +11,35 @@ import './App.css'
 import Profile from '../Profile/Profile'
 import Movies from '../Movies/Movies'
 import SavedMovies from '../SavedMovies/SavedMovies'
+import NavigationMenu from '../NavigationMenu/NavigationMenu'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(noUser)
+  const [menuVisible, setMenuVisible] = useState(false)
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
   const navigate = useNavigate()
   const location = useLocation()
   const headerPaths = ['/', '/movies', '/saved-movies', '/profile']
+
+  function handleWindowResize() {
+    setWindowWidth(window.innerWidth)
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowResize)
+    return () => {
+      window.removeEventListener('resize', handleWindowResize)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isMobile() && menuVisible) setMenuVisible(false)
+  }, [windowWidth])
+
+  function isMobile() {
+    return windowWidth <= 768
+  }
 
   function handleSignOut() {
     setCurrentUser(noUser);
@@ -43,6 +65,14 @@ function App() {
     navigate('/', { replace: true });
   }
 
+  function handleOpenMenu() {
+    setMenuVisible(true)
+  }
+
+  function handleMenuClose() {
+    setMenuVisible(false)
+  }
+
   function isHeaderFooterVisible() {
     return headerPaths.includes(location.pathname);
   }
@@ -55,7 +85,7 @@ function App() {
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
-        {isHeaderFooterVisible() && <Header highlight={getHeaderHighlight()} onSignOut={handleSignOut}/>}
+        {isHeaderFooterVisible() && <Header highlight={getHeaderHighlight()} onOpenMenu={handleOpenMenu}/>}
 
         <Routes>
           <Route
@@ -85,6 +115,8 @@ function App() {
         </Routes>
 
         {isHeaderFooterVisible() && (<Footer/>)}
+
+        <NavigationMenu isOpened={menuVisible} onClose={handleMenuClose} />
       </CurrentUserContext.Provider>
     </div>
   )

@@ -30,7 +30,7 @@ function Profile(props) {
           value={values.name}
           onChange={handleChange}
           wide={true}
-          {...nameValidationSettiings} />
+          { ...nameValidationSettiings } />
         <div className="profile__separator"></div>
         <Input
           name="email"

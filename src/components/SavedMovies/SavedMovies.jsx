@@ -2,11 +2,6 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import film1Path from "../../images/film-1.jfif"
 import film2Path from "../../images/film-2.jfif"
 import film3Path from "../../images/film-3.jfif"
-import film4Path from "../../images/film-4.jfif"
-import film5Path from "../../images/film-5.jfif"
-import film6Path from "../../images/film-6.jfif"
-import film7Path from "../../images/film-7.jfif"
-import film8Path from "../../images/film-8.jfif"
 import Layout from "../Layout/Layout";
 import MoviesSearch from "../MoviesSearch/MoviesSearch";
 

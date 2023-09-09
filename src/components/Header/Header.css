@@ -29,6 +29,11 @@
   line-height: 16px;
   color: #FFF;
   text-decoration: none;
+  transition: opacity 0.1s linear;
+}
+
+.header__link:hover {
+  opacity: 0.7;
 }
 
 .header__link_auth {

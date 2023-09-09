@@ -1,10 +1,11 @@
 import Layout from '../Layout/Layout'
 import landingLogoPath from '../../images/landing-logo.svg'
 import './Promo.css'
+import { LayoutHighlight } from '../../utils/constants'
 
 function Promo(props) {
   return (
-    <Layout isHighlighted={true}>
+    <Layout highlight={LayoutHighlight.Blue}>
       <section className="promo">
         <div className="promo__left-pane">
           <h1 className="promo__header">Учебный проект студента факультета <span className="promo__header_nowrap">Веб-разработки</span>.</h1>

@@ -44,6 +44,10 @@
   padding: 0;
 }
 
+.input_wide:focus-visible {
+  outline-style: none;
+}
+
 .input-error {
   color: #EE3465;
 }

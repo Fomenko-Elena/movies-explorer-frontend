@@ -1,10 +1,10 @@
-import './AboutMe.css'
 import photoPath from "../../images/IMG_3928.jpg"
 import MainSection from "../MainSection/MainSection"
+import './AboutMe.css'
 
 function AboutMe() {
   return (
-    <MainSection header="Студент">
+    <MainSection header="Студент" className="about">
       <div className="about__user">
         <div class="about__text">
           <h2 className="about__user-name">Елена</h2>

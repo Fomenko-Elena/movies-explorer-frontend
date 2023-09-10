@@ -1,3 +1,7 @@
+.about {
+  padding-bottom: 100px;
+}
+
 .about__user {
   display: flex;
   flex-direction: row;

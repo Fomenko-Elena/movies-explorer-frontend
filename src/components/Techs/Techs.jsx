@@ -5,7 +5,7 @@ import './Techs.css'
 
 function Techs() {
   return (
-    <MainSection header="Технологии" highlight={LayoutHighlight.Gray}>
+    <MainSection header="Технологии" highlight={LayoutHighlight.Gray} className="techs">
       <div className="techs__item">
         <h2 className="techs__item-header">7 технологий</h2>
         <p className="techs__item-info">На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>

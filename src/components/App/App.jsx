@@ -12,6 +12,7 @@ import Profile from '../Profile/Profile'
 import Movies from '../Movies/Movies'
 import SavedMovies from '../SavedMovies/SavedMovies'
 import NavigationMenu from '../NavigationMenu/NavigationMenu'
+import PageNotFound from '../PageNotFound/PageNotFound'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(noUser)
@@ -132,6 +133,10 @@ function App() {
           <Route
             path="/profile"
             element={<Profile OnSignOut={handleSignOut} OnSave={handleSaveProfile} user={currentUser}/>}
+          />
+          <Route
+            path="*"
+            element={<PageNotFound />} 
           />
         </Routes>
 

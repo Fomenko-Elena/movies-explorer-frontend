@@ -49,22 +49,26 @@ function App() {
   }
 
   function handleRegister(registrationData) {
-    navigate('/signin', { replace: true });
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject({message: 'Test error'})
+      }, 500)
+    })
   }
 
   function handleLogin(loginData) {
-    const userData = { 
-      _id: 1,
-      name: 'Test User',
-      email: loginData.email
-    };
-    setCurrentUser(userData);
-    navigate('/', { replace: true });
-  }
-
-  function handleLogoff() {
-    setCurrentUser(noUser);
-    navigate('/', { replace: true });
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const userData = { 
+          _id: 1,
+          name: 'Test User',
+          email: loginData.email
+        };
+        setCurrentUser(userData);
+        navigate('/', { replace: true });
+        resolve(userData);
+      }, 500)
+    })
   }
 
   function handleOpenMenu() {
@@ -83,6 +87,11 @@ function App() {
       setMoviesStatus(ComponentStatus.Successed);
       setFilteredMovies(predefinedMovies);
     }, 500)
+  }
+
+  function handleSaveProfile(profile) {
+    //return Promise.resolve(profile);
+    return Promise.reject({message: 'Test message'})
   }
 
   function isHeaderFooterVisible() {
@@ -122,7 +131,7 @@ function App() {
           />
           <Route
             path="/profile"
-            element={<Profile onLogoff={handleLogoff} user={currentUser}/>}
+            element={<Profile OnSignOut={handleSignOut} OnSave={handleSaveProfile} user={currentUser}/>}
           />
         </Routes>
 

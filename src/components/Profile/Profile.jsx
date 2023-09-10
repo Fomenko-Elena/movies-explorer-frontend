@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Dialog from "../Dialog/Dialog"
 import "./Profile.css";
 import Input from "../Input/Input";
@@ -7,20 +7,45 @@ import DialogHeader from "../DialogHeader/DialogHeader";
 import DialogSubmitSection from "../DialogSubmitSection/DialogSubmitSection";
 import { useForm } from "../../hooks/formHooks";
 import { nameValidationSettiings } from "../../utils/constants";
+import { Link } from "react-router-dom"
 
-function Profile(props) {
+function Profile({
+  user,
+  OnSave,
+  OnSignOut,
+}) {
+  const [isReadOnly, setReadOnly] = useState(true)
+  const [error, setError] = useState(null)
   const [values, handleChange, setValues] = useForm()
 
   useEffect(() => {
     setValues({
-      email: props.user.email,
-      name: props.user.name,
+      email: user.email || 'Test@user.com',
+      name: user.name || 'Test user',
     })
   }, [])
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    OnSave(values)
+      .then((profile) => setReadOnly(true))
+      .catch(error => setError(error.message));
+  }
+
+  function handleEditClick(e) {
+    e.preventDefault();
+    setReadOnly(false)
+  }
+
+  function handleSignoutClick(e) {
+    e.preventDefault();
+    OnSignOut();
+  }
+
+
   return (
-    <Dialog formClass="dialog__form_wide" onSubmit={props.onSubmit}>
-      <DialogHeader header={`Привет, ${props.user.name}`} wide={true}/>
+    <Dialog formClass="dialog__form_wide" onSubmit={handleSubmit}>
+      <DialogHeader header={`Привет, ${user.name}`} wide={true}/>
       <Inputs wide={true}>
         <Input
           name="name"
@@ -30,8 +55,9 @@ function Profile(props) {
           value={values.name}
           onChange={handleChange}
           wide={true}
+          isReadOnly={isReadOnly}
           { ...nameValidationSettiings } />
-        <div className="profile__separator"></div>
+        <div className="profile__separator"/>
         <Input
           name="email"
           type="email"
@@ -40,15 +66,20 @@ function Profile(props) {
           value={values.email}
           onChange={handleChange}
           wide={true}
+          isReadOnly={isReadOnly}
           required={true} />
       </Inputs>
-      <DialogSubmitSection
+      {isReadOnly && (
+        <div className="profile__submit-section">
+          <Link className="profile__link" onClick={handleEditClick}>Редактировать</Link>
+          <Link className="profile__signout-link" onClick={handleSignoutClick}>Выйти из аккаунта</Link>
+        </div>
+      )}
+      {!isReadOnly && <DialogSubmitSection
         className="profile__submit-section"
-        wide={true}
-        submitText="Редактировать"
-        linkText="Выйти из аккаунта"
-        link="/signin"
-      />
+        submitText="Сохранить"
+        error={error}
+      />}
     </Dialog>
   )
 }

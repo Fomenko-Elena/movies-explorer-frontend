@@ -11,3 +11,32 @@
   gap: 18px;
   padding-top: 220px;
 }
+
+.profile__link {
+  color: #FFF;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: normal;
+  background-color: transparent;
+  text-decoration: none;
+  text-align: center;
+  transition: opacity 0.1s linear;
+}
+
+.profile__link:hover {
+  opacity: 0.7;
+}
+
+.profile__signout-link {
+  text-align: center;
+  color: #EE3465;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+  transition: opacity 0.1s linear;
+}
+
+.profile__signout-link:hover {
+  opacity: 0.7;
+}

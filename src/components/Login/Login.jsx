@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import DialogWithLogo from "../DialogWithLogo/DialogWithLogo"
 import "./Login.css"
 import Input from "../Input/Input"
@@ -6,8 +6,11 @@ import Inputs from "../Inputs/Inputs"
 import DialogSubmitSection from "../DialogSubmitSection/DialogSubmitSection"
 import { useForm } from "../../hooks/formHooks"
 
-function Login(props) {
+function Login({
+  onLogin,
+}) {
   const [values, handleChange, setValues] = useForm()
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     setValues({
@@ -19,7 +22,8 @@ function Login(props) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    props.onLogin(values)
+    onLogin(values)
+      .catch(error => setError(error.message));
   }
 
   return (
@@ -50,6 +54,7 @@ function Login(props) {
         notes="Ещё не зарегистрированы?"
         linkText="Регистрация"
         link="/signup"
+        error={error}
       />
     </DialogWithLogo>
   )

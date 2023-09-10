@@ -32,6 +32,11 @@
   background: url(./../../images/find.svg) no-repeat;
   background-position: 100% 0;
   cursor: pointer;
+  transition: opacity 0.1s linear;
+}
+
+.search__button:hover {
+  opacity: 0.8;
 }
 
 .search__options {
@@ -46,6 +51,7 @@
   height: 20px;
   border: none;
   line-height: 18px;
+  transition: opacity 0.1s linear;
 
   background: url(./../../images/smalltumb.svg) no-repeat;
   background-size: 100% auto;
@@ -53,9 +59,13 @@
 }
 
 .search__short:checked {
-  background: url(./../../images/smalltumboff.svg) no-repeat;
+  background: url(./../../images/smalltumboff_hover.svg) no-repeat;
   background-size: 100% auto;
   background-position: -4px -1px;
+}
+
+.search__short:hover{
+  opacity: 0.8;
 }
 
 .search__short-label {

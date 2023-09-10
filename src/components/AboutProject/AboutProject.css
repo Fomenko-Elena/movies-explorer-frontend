@@ -1,35 +1,14 @@
-.about-project {
-  display: flex;
-  flex-direction: column;
-  margin: 100px 0;
-  position: relative;
-  scroll-margin-block-start: 100px;
-}
-
-.about-project__header {
-  border-bottom: 1px solid #DADADA;
-  padding-bottom: 23px;
-}
-
-.about-project__header-item {
-  font-size: 22px;
-  font-weight: 400;
-  line-height: 26.63px;
-  letter-spacing: -0.88px;
-  margin: 0;
-}
-
 .about-project__table {
   display: flex;
   flex-direction: row;
   gap: 0 40px;  
 }
 
-.about-project__columns {
+.about-project__column {
   margin-top: 70px;
 }
 
-.about-project__columns-header {
+.about-project__column-header {
   font-size: 20px;
   font-weight: 400;
   line-height: 24.2px;
@@ -38,7 +17,7 @@
   letter-spacing: -0.8px;
 }
 
-.about-project__columns-info {
+.about-project__column-info {
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -53,11 +32,11 @@
   margin-top: 110px;
 }
 
-.about-project__block-right {
+.about-project__block-left {
   width: 20%;
 }
 
-.about-project__block-left {
+.about-project__block-right {
   width: 80%;
 }
 

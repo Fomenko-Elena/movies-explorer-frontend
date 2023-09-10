@@ -13,7 +13,7 @@ function Footer() {
         </div>
 
         <ul className="footer__links">
-          <li className="footer__copyright">
+          <li className="footer__column footer__column_copyright">
            <p className="footer__copyright-text">© 2023</p> 
           </li> 
           <li className="footer__column">
@@ -22,8 +22,7 @@ function Footer() {
           <li className="footer__column">
             <a className="footer__column-links" href="#">Github</a>           
           </li>        
-        </ul>   
- 
+        </ul>
       </footer>
     </Layout>
   );

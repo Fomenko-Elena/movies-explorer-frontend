@@ -1,13 +1,16 @@
+.footer {
+  padding: 79px 0 20px 0;
+}
+
 .footer__item {
   border-bottom: 1px solid #424242;
   padding-bottom: 20px;
-  padding-top: 79px;
 }
 
 .footer__item-info {
   color: #8B8B8B;
   font-size: 13px;
-  line-height: 15.73px; 
+  line-height: 15.73px;
   text-align: center;
   margin: 0;
 }
@@ -15,30 +18,28 @@
 .footer__links {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   list-style-type: none;
-  padding-left: 0;
+  padding: 20px 0 0;
+  gap: 20px;
+  justify-content: end;
+  margin: 0;
 }
 
-.footer__column {
-  
-}
-  
 .footer__column-links {
   color: #FFFFFF;
   font-size: 13px;
   font-weight: 400px;
-  line-height: 15.73px;  
-  text-decoration: none;   
-}
-
-.footer__copyright {
-  
+  line-height: 15.73px;
+  text-decoration: none;
 }
 
 .footer__copyright-text {
+  display: inline;
   color: #FFFFFF;
   font-size: 13px;
   margin: 0;
-   
+}
+
+.footer__column_copyright {
+  margin-right: auto;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
@@ -25,8 +25,18 @@ function App() {
   const location = useLocation()
   const headerPaths = ['/', '/movies', '/saved-movies', '/profile']
 
+  const throttleInProgressRef = useRef()
+
   function handleWindowResize() {
-    setWindowWidth(window.innerWidth)
+    if (throttleInProgressRef.current === true) return;
+
+    throttleInProgressRef.current = true;
+
+    setTimeout(() => {
+        setWindowWidth(window.innerWidth);
+        throttleInProgressRef.current = false;
+      }, 
+      700);
   }
 
   useEffect(() => {

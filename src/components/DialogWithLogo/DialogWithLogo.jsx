@@ -1,12 +1,12 @@
 import Dialog from "../Dialog/Dialog";
-import logoPath from '../../images/logo.svg';
 import "./DialogWithLogo.css"
 import DialogHeader from "../DialogHeader/DialogHeader";
+import Logo from "../Logo/Logo";
 
 function DialogWithLogo(props) {
   return (
     <Dialog formClass="dialog__form_normal" onSubmit={props.onSubmit}>
-      <img className="dialog__logo" alt="Логотип" src={logoPath}/>
+      <Logo/>
       <DialogHeader header={props.header}/>
 
       {props.children}

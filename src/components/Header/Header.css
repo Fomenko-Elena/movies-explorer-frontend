@@ -6,11 +6,6 @@
   min-height: 74px;
 }
 
-.header__logo {
-  height: 38px;
-  width: 38px;
-}
-
 .header__nav-right-bar {
   display: flex;
   flex-direction: row;

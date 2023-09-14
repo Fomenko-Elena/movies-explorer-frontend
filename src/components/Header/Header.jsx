@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import logoPath from '../../images/logo.svg';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { LayoutHighlight, noUser } from '../../utils/constants';
 import './Header.css'
 import Layout from '../Layout/Layout';
 import classNames from 'classnames';
+import Logo from '../Logo/Logo';
 
 function Header({
   highlight,
@@ -21,9 +21,7 @@ function Header({
     return (
       <Layout highlight={highlight}>
         <header className="header">
-          <Link className="header__logo-link" to="/">
-              <img className="header__logo" alt="Лого" src={logoPath}/>
-          </Link>
+          <Logo/>
           {currentUser === noUser && (
             <nav className="header__nav-right-bar">
               <Link className="header__link" to="/signup">Регистрация</Link>

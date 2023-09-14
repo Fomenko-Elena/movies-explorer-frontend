@@ -5,3 +5,9 @@
   gap: 16px;
   padding-top: 50px;
 }
+
+@media screen and (max-width: 768px) {
+  .register__submit-section {
+    padding-top: 45px;
+  }
+}

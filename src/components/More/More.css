@@ -26,3 +26,9 @@
 .more__button:hover {
   opacity: 0.7;
 }
+
+@media screen and (max-width: 1100px) {
+  .more {
+    padding-bottom: 80px;
+  }
+}

@@ -10,3 +10,9 @@
   text-align: center;
   padding: 4px 0 123px 0;
 }
+
+@media screen and (max-width: 768px) {
+  .dialog__header_wide {
+    padding-bottom: 96px;
+  }
+}

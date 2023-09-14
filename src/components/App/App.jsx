@@ -24,6 +24,7 @@ function App() {
   const navigate = useNavigate()
   const location = useLocation()
   const headerPaths = ['/', '/movies', '/saved-movies', '/profile']
+  const footerPaths = ['/', '/movies', '/saved-movies']
 
   const throttleInProgressRef = useRef()
 
@@ -101,12 +102,15 @@ function App() {
   }
 
   function handleSaveProfile(profile) {
-    //return Promise.resolve(profile);
     return Promise.reject({message: 'Test message'})
   }
 
-  function isHeaderFooterVisible() {
+  function isHeaderVisible() {
     return headerPaths.includes(location.pathname);
+  }
+
+  function isFooterVisible() {
+    return footerPaths.includes(location.pathname);
   }
 
   function getHeaderHighlight() {
@@ -117,7 +121,7 @@ function App() {
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
-        {isHeaderFooterVisible() && <Header highlight={getHeaderHighlight()} onOpenMenu={handleOpenMenu}/>}
+        {isHeaderVisible() && <Header highlight={getHeaderHighlight()} onOpenMenu={handleOpenMenu}/>}
 
         <Routes>
           <Route
@@ -150,7 +154,7 @@ function App() {
           />
         </Routes>
 
-        {isHeaderFooterVisible() && (<Footer/>)}
+        {isFooterVisible() && (<Footer/>)}
 
         <NavigationMenu isOpened={menuVisible} onClose={handleMenuClose} />
       </CurrentUserContext.Provider>

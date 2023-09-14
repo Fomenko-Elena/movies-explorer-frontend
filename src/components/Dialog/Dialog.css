@@ -29,6 +29,11 @@
   .dialog__form_normal {
     padding-top: 232px;
   }
+
+  .dialog__form_wide {
+    padding-top: 232px;
+    max-width: 410px;
+  }
 }
 
 @media screen and (max-width: 320px) {

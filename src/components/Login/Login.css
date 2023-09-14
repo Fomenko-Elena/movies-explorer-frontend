@@ -5,3 +5,9 @@
   gap: 16px;
   padding-top: 138px;
 }
+
+@media screen and (max-width: 768px) {
+  .login__submit-section {
+    padding-top: 136px;
+  }
+}

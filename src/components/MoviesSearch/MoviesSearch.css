@@ -54,14 +54,14 @@
   transition: opacity 0.1s linear;
 
   background: url(./../../images/smalltumb.svg) no-repeat;
-  background-size: 100% auto;
-  background-position-y: -1px;
+  background-size: 39px 28px;
+  background-position-y: -2px;
 }
 
 .search__short:checked {
   background: url(./../../images/smalltumboff_hover.svg) no-repeat;
-  background-size: 100% auto;
-  background-position: -4px -1px;
+  background-size:39px 28px;
+  background-position: -4px -2px;
 }
 
 .search__short:hover{
@@ -74,4 +74,18 @@
   line-height: 18px;
   padding: 0;
   margin: 0;
+}
+
+@media screen and (max-width: 1100px) {
+  .search {
+    padding: 80px 0 60px 0;
+    gap: 30px;
+  }
+
+  .search__options {
+    justify-content: end;
+    flex-direction: row-reverse;
+    align-items: end;
+    gap: 16px;
+  }
 }

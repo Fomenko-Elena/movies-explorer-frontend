@@ -20,4 +20,9 @@
   min-width: 320px;
   padding: 11px 0 9px 0;
   cursor: pointer;
+  transition: opacity 0.1s linear;
+}
+
+.more__button:hover {
+  opacity: 0.7;
 }

@@ -53,6 +53,11 @@
   background: url(./../../images/unchecked.svg) no-repeat;
   background-position: -6px -3px;
   cursor: pointer;
+  transition: opacity 0.1s linear;
+}
+
+.card-selection:hover {
+  opacity: 0.7;
 }
 
 .card-selection:checked {
@@ -67,4 +72,9 @@
   mask: url(./../../images/remove.svg) no-repeat;
   cursor: pointer;
   fill: #FFF;
+  transition: opacity 0.1s linear;
+}
+
+.card-remove:hover {
+  opacity: 0.7;
 }

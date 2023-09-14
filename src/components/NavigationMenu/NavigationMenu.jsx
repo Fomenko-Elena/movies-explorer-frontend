@@ -2,6 +2,7 @@ import { createRef, useEffect } from "react";
 import { NavLink } from 'react-router-dom';
 import "./NavigationMenu.css"
 import classNames from "classnames";
+import ProfileLink from "../ProfileLink/ProfileLink";
 
 function NavigationMenu({
   isOpened,
@@ -57,13 +58,9 @@ function NavigationMenu({
           >
             Сохранённые фильмы
           </NavLink>
-          <NavLink
-            to="/profile"
+          <ProfileLink 
             className={({isActive}) => classNames('navigation__link', 'navigation__link_profile', { 'navigation__link_active': isActive })}
-            onClick={handleClose}
-          >
-            Аккаунт
-          </NavLink>
+            onClick={handleClose}/>
         </nav>
       </div>
     </div>

@@ -1,0 +1,35 @@
+.profile-link {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.profile-link-account {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 7px;
+  width: 32px;
+  height: 26px;
+  border-radius: 50px;
+  background: #313131;
+}
+
+.profile-link-image {
+  width: 12px;
+  height: 11px;
+  mask: url(./../../images/account.svg) no-repeat;
+  background-size: 10.38px 10.67px;
+  background-color: #FFF;
+}
+
+.profile-link-account_blue {
+  background: #0F4157;
+}
+
+.profile-link_highlighted {
+  padding: 8px 20px;
+  color: #000;
+  border-radius: 3px;
+  background: #3DDC84;
+}

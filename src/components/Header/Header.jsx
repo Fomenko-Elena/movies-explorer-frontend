@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { LayoutHighlight, noUser } from '../../utils/constants';
+import { noUser } from '../../utils/constants';
 import './Header.css'
 import Layout from '../Layout/Layout';
-import classNames from 'classnames';
 import Logo from '../Logo/Logo';
+import ProfileLink from '../ProfileLink/ProfileLink';
 
 function Header({
   highlight,
@@ -35,12 +35,7 @@ function Header({
                 <Link className="header__link header__link_auth" to="/saved-movies">Сохраненные фильмы</Link>
               </nav>
               <nav className="header__nav-right-bar">
-                <Link className="header__link header__link_auth" to="/profile">
-                  Аккаунт
-                  <div className={classNames('header__link-account', { 'header__link-account_blue': highlight === LayoutHighlight.Blue })}>
-                    <div className="header__link-account-image"></div>
-                  </div>
-                </Link>
+                <ProfileLink className="header__link header__link_auth" highlight={highlight}/>
                 <Link className='header__menu' onClick={handleOpenMenuClick}/>
               </nav>
             </>

@@ -71,3 +71,18 @@
   font-weight: 400;
   line-height: normal;
 }
+
+@media screen and (max-width: 320px) {
+
+  .dialog__submit {
+    font-size: 12px;
+  }
+
+  .dialog__text {
+    font-size: 12px;
+  }
+
+  .dialog__link {
+    font-size: 12px;
+  }
+}

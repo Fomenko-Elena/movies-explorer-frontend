@@ -24,3 +24,15 @@
   font-weight: 400;
   line-height: normal;
 }
+
+@media screen and (max-width: 768px) {
+  .dialog__form_normal {
+    padding-top: 232px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .dialog__form_normal {
+    padding-top: 56px;
+  }
+}

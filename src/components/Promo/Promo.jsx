@@ -9,11 +9,11 @@ function Promo({
   function handleFindMoreClick() {
     OnFindMore();
   }
-  
+
   return (
     <Layout highlight={LayoutHighlight.Blue}>
       <section className="promo">
-        <div className='promo_main'>
+        <div className='promo__main'>
           <div className="promo__left-pane">
             <h1 className="promo__header">Учебный проект студента факультета <span className="promo__header_nowrap">Веб-разработки</span>.</h1>
             <p className="promo__info">Листайте ниже, чтобы узнать больше про этот проект и его создателя.</p>
@@ -22,7 +22,7 @@ function Promo({
             <img className="promo__landing-logo" src={landingLogoPath} alt="Логотип проекта"></img>
           </div>
         </div>
-        <button className="promo_about" onClick={handleFindMoreClick}>Узнать больше</button>
+        <button className="promo__about" onClick={handleFindMoreClick}>Узнать больше</button>
       </section>
     </Layout>
   )

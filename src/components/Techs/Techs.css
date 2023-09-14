@@ -55,3 +55,36 @@
   letter-spacing: -0.56px;
   margin-top: 21px;
 }
+
+@media screen and (max-width: 1100px) {
+  .techs {
+    padding: 92px 20px;
+  }
+
+  .techs__item-header {
+    padding-top: 80px;
+  }
+
+  .techs__item-info {
+    font-size: 12px;
+    line-height: 18px;
+    padding-top: 20px;
+    max-width: 460px;
+    letter-spacing: -0.48px;
+  }
+
+  .techs__table {
+    padding: 83px 10px 0;
+  }
+
+  .techs__table-text {
+    font-size: 12px;
+    line-height: normal;
+    letter-spacing: -0.48px;
+  }
+
+  .techs__table-block {
+    width: 84px;
+    height: 57px;
+  }
+}

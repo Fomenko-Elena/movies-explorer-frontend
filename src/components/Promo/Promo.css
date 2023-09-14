@@ -2,7 +2,7 @@
   padding: 75px 0;
 }
 
-.promo_main {
+.promo__main {
   display: flex;
   flex-direction: row;
   gap: 190px;
@@ -38,7 +38,7 @@
   margin: 0;
 }
 
-.promo_about {
+.promo__about {
   color: #FFF;
   font-size: 12px;
   font-style: normal;
@@ -51,6 +51,34 @@
   transition: opacity 0.1s linear;
 }
 
-.promo_about:hover {
+.promo__about:hover {
   opacity: 0.8;
+}
+
+@media screen and (max-width: 1100px) {
+  .promo {
+    padding-top: 140px;
+    padding-bottom: 73px;
+    text-align: center;
+  }
+
+  .promo__main {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 45px;
+  }
+
+  .promo__header {
+    color: #FFF;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 50px;
+  }
+
+  .promo__info {
+    max-width: 260px;
+    padding: 0;
+    margin: 22px auto 92px auto;
+  }
 }

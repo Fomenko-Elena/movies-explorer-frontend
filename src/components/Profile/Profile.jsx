@@ -45,7 +45,7 @@ function Profile({
 
   return (
     <Dialog formClass="dialog__form_wide" onSubmit={handleSubmit}>
-      <DialogHeader header={`Привет, ${user.name}`} wide={true}/>
+      <DialogHeader header={`Привет, ${user.name}!`} wide={true}/>
       <Inputs wide={true}>
         <Input
           name="name"
@@ -61,8 +61,8 @@ function Profile({
         <Input
           name="email"
           type="email"
-          label="Email"
-          placeholder="Email"
+          label="E-mail"
+          placeholder="E-mail"
           value={values.email}
           onChange={handleChange}
           wide={true}

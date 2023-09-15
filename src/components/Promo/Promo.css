@@ -8,7 +8,7 @@
   gap: 190px;
 }
 
-.promo__landing_logo {
+.promo__landing-logo {
   width: 310px;
   height: 304px;
 }
@@ -80,5 +80,36 @@
     max-width: 260px;
     padding: 0;
     margin: 22px auto 92px auto;
+  }
+}
+
+
+@media screen and (max-width: 400px) {
+  .promo {
+    padding: 70px 0 30px;
+  }
+
+  .promo__main {
+    gap: 40px; 
+  }
+
+  .promo__landing-logo {
+    width: 210px;
+    height: 206px;
+  }
+
+  .promo__header {
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 38px;
+    letter-spacing: -1.2px;
+  }
+
+  .promo__info {
+    max-width: 90%;
+    padding: 0;
+    margin: 25px auto 78px auto;
+    font-size: 13px;
+    line-height: normal;
   }
 }

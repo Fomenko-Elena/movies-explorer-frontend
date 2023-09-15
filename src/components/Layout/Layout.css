@@ -23,3 +23,11 @@
     max-width: 884px;
   }
 }
+
+@media screen and (max-width: 400px) {
+  .layout-inner {
+    margin: 0 auto;
+    padding: 0 14px;
+    max-width: 292px;
+  }
+}

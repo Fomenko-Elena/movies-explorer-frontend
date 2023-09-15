@@ -90,5 +90,48 @@
 
   .about-project__block-left {
     width: 21%;
+    min-width: 100px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .about-project__table {
+    flex-direction: column;
+    margin-top: 61px;
+    gap: 56px 0;
+  }
+
+  .about-project__column-header {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+
+  .about-project__column {
+    margin-top: 0;
+  }
+
+  .about-project__column-info {
+    font-size: 11px;
+    line-height: 16px; 
+    padding-top: 16px;
+  }
+
+  .about-project__table-two {
+    margin-top: 60px;
+  }
+
+  .about-project__block-one {
+    height: 35px;
+    font-size: 11px;
+  }
+
+  .about-project__block-two {
+    height: 35px;
+    font-size: 11px;
+  }
+
+  .about-project__block-info {
+    font-size: 11px;
+    margin-top: 10px;
   }
 }

@@ -38,7 +38,7 @@
 .about__github-item {
   display: inline-block;
   font-size: 14px;
-  font-weight: 500px;
+  font-weight: 500;
   line-height: 16.94px;
   color: #FFFFFF;
   margin-top: auto;
@@ -94,5 +94,50 @@
   .about__avatar-foto {
     height: 307px;
     width: 255px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .about {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .about__user {
+    flex-direction: column-reverse;
+  }
+
+  .about__avatar {
+    margin-top: 60px;
+  }
+
+  .about__avatar-foto {
+    height: 352px;
+    width: 100%;
+  }
+
+  .about__user-name {
+    font-size: 30px;
+    line-height: normal;
+    letter-spacing: -1.2px;
+    padding-top: 37px;
+  }
+
+  .about__user-job {
+    font-size: 11px;
+    line-height: 16px;
+    font-weight: 400;
+    padding-top: 20px;
+  }
+
+  .about__user-info {
+    font-size: 11px;
+    line-height: 16px;
+    font-weight: 400;
+    padding-top: 20px;
+  }
+
+  .about__github-item {
+    margin: 40px 0 0;
   }
 }

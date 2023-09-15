@@ -22,3 +22,17 @@
     padding-bottom: 23px;
   }
 }
+
+
+@media screen and (max-width: 400px) {
+  .main-section {
+    padding: 70px 4px 69px;
+  }
+
+  .main-section__header {
+    padding-bottom: 28px;
+    font-size: 18px;
+    line-height: normal;
+    letter-spacing: -0.72px;
+  }
+}

@@ -8,7 +8,7 @@ function Portfolio(props) {
       <section className="portfolio">
 
         <div className="portfolio__header">
-          <p className="portfolio__header-item">Портфолио</p>
+          <h2 className="portfolio__header-item">Портфолио</h2>
         </div> 
       
         <ul className="portfolio__link">

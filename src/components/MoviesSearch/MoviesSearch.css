@@ -7,11 +7,13 @@
 
 .search__phrase {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
 .search__text {
-  width: 100%;
+  width: auto;
   color: #FFF;
   font-size: 28px;
   font-weight: 500;
@@ -19,6 +21,13 @@
   border: none;
   border-bottom: #424242 1px solid;
   padding-bottom: 13px;
+  padding-right: 40px;
+}
+
+.search__text:focus {
+  border: none;
+  border-bottom: #FFF 1px solid;
+  outline: none;
 }
 
 .search__button {
@@ -26,7 +35,7 @@
   right: 0;
   top: 0;
   z-index: 1;
-  width: 80px;
+  width: 34px;
   height: 34px;
   border: none;
   background: url(./../../images/find.svg) no-repeat;
@@ -87,5 +96,33 @@
     flex-direction: row-reverse;
     align-items: end;
     gap: 16px;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .search {
+    padding: 90px 0 51px 0;
+    gap: 40px;
+  }
+
+  .search__button {
+    top: -6px;
+    right: 4px;
+  }
+
+  .search__text {
+    font-size: 18px;
+    font-weight: 500;
+    padding-bottom: 15px;
+  }
+
+  .search__options {
+    justify-content: center;
+  }
+
+  .search__short-label {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 18px;
   }
 }

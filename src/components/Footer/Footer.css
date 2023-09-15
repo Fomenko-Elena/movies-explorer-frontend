@@ -51,10 +51,7 @@
   margin-right: auto;
 }
 
-@media screen and (max-width: 400px) {
-  .footer {
-  }
-
+@media screen and (max-width: 630px) {
   .footer__item-info {
     font-size: 12px;
     line-height: normal;
@@ -84,6 +81,5 @@
 
   .footer__copyright-text {
     font-size: 12px;
-  }
-  
+  }  
 }

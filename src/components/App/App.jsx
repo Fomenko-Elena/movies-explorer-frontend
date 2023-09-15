@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
@@ -13,11 +13,12 @@ import Movies from '../Movies/Movies'
 import SavedMovies from '../SavedMovies/SavedMovies'
 import NavigationMenu from '../NavigationMenu/NavigationMenu'
 import PageNotFound from '../PageNotFound/PageNotFound'
+import WindowSizeContextProvider from '../WindowSizeContextProvider/WindowSizeContextProvider'
+import { WindowSizeContext } from '../../contexts/WindowSizeContext'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(noUser)
   const [menuVisible, setMenuVisible] = useState(false)
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   const [moviesStatus, setMoviesStatus] = useState(ComponentStatus.Loading)
   const [filteredMovies, setFilteredMovies] = useState([])
 
@@ -25,35 +26,15 @@ function App() {
   const location = useLocation()
   const headerPaths = ['/', '/movies', '/saved-movies', '/profile']
   const footerPaths = ['/', '/movies', '/saved-movies']
+  const windowSizeContext = useContext(WindowSizeContext)
 
-  const throttleInProgressRef = useRef()
-
-  function handleWindowResize() {
-    if (throttleInProgressRef.current === true) return;
-
-    throttleInProgressRef.current = true;
-
-    setTimeout(() => {
-        setWindowWidth(window.innerWidth);
-        throttleInProgressRef.current = false;
-      }, 
-      700);
+  function isMobile() {
+    return windowSizeContext.width <= 768
   }
-
-  useEffect(() => {
-    window.addEventListener('resize', handleWindowResize)
-    return () => {
-      window.removeEventListener('resize', handleWindowResize)
-    }
-  }, [])
 
   useEffect(() => {
     if (!isMobile() && menuVisible) setMenuVisible(false)
-  }, [windowWidth])
-
-  function isMobile() {
-    return windowWidth <= 768
-  }
+  }, [windowSizeContext])
 
   function handleSignOut() {
     setCurrentUser(noUser);
@@ -121,42 +102,44 @@ function App() {
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
-        {isHeaderVisible() && <Header highlight={getHeaderHighlight()} onOpenMenu={handleOpenMenu}/>}
+        <WindowSizeContextProvider>
+          {isHeaderVisible() && <Header highlight={getHeaderHighlight()} onOpenMenu={handleOpenMenu}/>}
 
-        <Routes>
-          <Route
-            path="/" 
-            element={<Main/>} 
-          />
-          <Route
-            path="/movies" 
-            element={<Movies OnFilter={handleFilterMovies} componentStatus={moviesStatus} cards={filteredMovies}/>} 
-          />
-          <Route
-            path="/saved-movies" 
-            element={<SavedMovies/>} 
-          />
-          <Route
-            path="/signup"
-            element={<Register onRegister={handleRegister}/>}
-          />
-          <Route
-            path="/signin"
-            element={<Login onLogin={handleLogin}/>}
-          />
-          <Route
-            path="/profile"
-            element={<Profile OnSignOut={handleSignOut} OnSave={handleSaveProfile} user={currentUser}/>}
-          />
-          <Route
-            path="*"
-            element={<PageNotFound />} 
-          />
-        </Routes>
+          <Routes>
+            <Route
+              path="/" 
+              element={<Main/>} 
+            />
+            <Route
+              path="/movies" 
+              element={<Movies OnFilter={handleFilterMovies} componentStatus={moviesStatus} cards={filteredMovies}/>} 
+            />
+            <Route
+              path="/saved-movies" 
+              element={<SavedMovies/>} 
+            />
+            <Route
+              path="/signup"
+              element={<Register onRegister={handleRegister}/>}
+            />
+            <Route
+              path="/signin"
+              element={<Login onLogin={handleLogin}/>}
+            />
+            <Route
+              path="/profile"
+              element={<Profile OnSignOut={handleSignOut} OnSave={handleSaveProfile} user={currentUser}/>}
+            />
+            <Route
+              path="*"
+              element={<PageNotFound />} 
+            />
+          </Routes>
 
-        {isFooterVisible() && (<Footer/>)}
+          {isFooterVisible() && (<Footer/>)}
 
-        <NavigationMenu isOpened={menuVisible} onClose={handleMenuClose} />
+          <NavigationMenu isOpened={menuVisible} onClose={handleMenuClose} />
+        </WindowSizeContextProvider>
       </CurrentUserContext.Provider>
     </div>
   )

@@ -24,7 +24,7 @@
 }
 
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 630px) {
   .main-section {
     padding: 70px 4px 69px;
   }

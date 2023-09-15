@@ -27,6 +27,11 @@ export const LayoutHighlight = {
   Gray: 'gray',
 }
 
+export const LayoutWidthStyle = {
+  Default: '',
+  Wider: 'wider'
+}
+
 export const nameValidationSettiings = {
   required: true,
   minLength: 2,

@@ -68,7 +68,7 @@
 }
 
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 630px) {
   .header__link {
     font-size: 10px;
     line-height: 16px;
@@ -80,5 +80,11 @@
 
   .header__link_highlighted {
     padding: 5px 12px;
+  }
+
+  .header__menu {
+    width: 40px;
+    height: 43px;
+    background-size: 40px 43px;
   }
 }

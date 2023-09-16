@@ -4,7 +4,6 @@ export function useForm(initialState) {
   const [values, setValues] = React.useState(initialState);
 
   const handleChange = (event) => {
-    debugger;
     const target = event.target;
     const value = target.value;
     const name = target.name;

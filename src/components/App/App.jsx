@@ -13,7 +13,6 @@ import Movies from '../Movies/Movies'
 import SavedMovies from '../SavedMovies/SavedMovies'
 import NavigationMenu from '../NavigationMenu/NavigationMenu'
 import PageNotFound from '../PageNotFound/PageNotFound'
-import WindowSizeContextProvider from '../WindowSizeContextProvider/WindowSizeContextProvider'
 import { WindowSizeContext } from '../../contexts/WindowSizeContext'
 
 function App() {
@@ -102,44 +101,42 @@ function App() {
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
-        <WindowSizeContextProvider>
-          {isHeaderVisible() && <Header highlight={getHeaderHighlight()} onOpenMenu={handleOpenMenu}/>}
+        {isHeaderVisible() && <Header highlight={getHeaderHighlight()} onOpenMenu={handleOpenMenu}/>}
 
-          <Routes>
-            <Route
-              path="/" 
-              element={<Main/>} 
-            />
-            <Route
-              path="/movies" 
-              element={<Movies OnFilter={handleFilterMovies} componentStatus={moviesStatus} cards={filteredMovies}/>} 
-            />
-            <Route
-              path="/saved-movies" 
-              element={<SavedMovies/>} 
-            />
-            <Route
-              path="/signup"
-              element={<Register onRegister={handleRegister}/>}
-            />
-            <Route
-              path="/signin"
-              element={<Login onLogin={handleLogin}/>}
-            />
-            <Route
-              path="/profile"
-              element={<Profile OnSignOut={handleSignOut} OnSave={handleSaveProfile} user={currentUser}/>}
-            />
-            <Route
-              path="*"
-              element={<PageNotFound />} 
-            />
-          </Routes>
+        <Routes>
+          <Route
+            path="/" 
+            element={<Main/>} 
+          />
+          <Route
+            path="/movies" 
+            element={<Movies OnFilter={handleFilterMovies} componentStatus={moviesStatus} cards={filteredMovies}/>} 
+          />
+          <Route
+            path="/saved-movies" 
+            element={<SavedMovies/>} 
+          />
+          <Route
+            path="/signup"
+            element={<Register onRegister={handleRegister}/>}
+          />
+          <Route
+            path="/signin"
+            element={<Login onLogin={handleLogin}/>}
+          />
+          <Route
+            path="/profile"
+            element={<Profile OnSignOut={handleSignOut} OnSave={handleSaveProfile} user={currentUser}/>}
+          />
+          <Route
+            path="*"
+            element={<PageNotFound />} 
+          />
+        </Routes>
 
-          {isFooterVisible() && (<Footer/>)}
+        {isFooterVisible() && (<Footer/>)}
 
-          <NavigationMenu isOpened={menuVisible} onClose={handleMenuClose} />
-        </WindowSizeContextProvider>
+        <NavigationMenu isOpened={menuVisible} onClose={handleMenuClose} />
       </CurrentUserContext.Provider>
     </div>
   )

@@ -30,7 +30,7 @@ export function WindowSizeContextProvider({
   }, [])
 
   return (
-    <WindowSizeContext.Provider value={{ width, height }}>
+    <WindowSizeContext.Provider value={{ width: width, height: height }}>
       {children}
     </WindowSizeContext.Provider>
    )

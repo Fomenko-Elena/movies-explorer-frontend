@@ -87,3 +87,16 @@
   font-weight: 500;
   line-height: 12px;
 }
+
+@media screen and (max-width: 630px) {
+  .popup__container {
+    padding: 13.44px 13.44px 0 13.44px;
+    width: 320px;
+    height: 768px;
+  }
+
+  .navigation {
+    padding: 107px 0 52px 0;
+    gap: 24px;
+  }
+}

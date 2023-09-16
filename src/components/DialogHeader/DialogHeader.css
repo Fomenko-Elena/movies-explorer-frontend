@@ -1,0 +1,29 @@
+.dialog__header {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+  padding: 40px 0;
+}
+
+.dialog__header_wide {
+  text-align: center;
+  padding: 4px 0 123px 0;
+}
+
+@media screen and (max-width: 768px) {
+  .dialog__header_wide {
+    padding-bottom: 96px;
+  }
+}
+
+@media screen and (max-width: 410px) {
+  .dialog__header_wide {
+    padding-bottom: 81px;
+  }
+
+  .dialog__header {
+    align-self: center;
+    padding: 50px 0 80px 0;
+  }
+}

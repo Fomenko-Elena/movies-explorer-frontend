@@ -1,0 +1,38 @@
+.layout {
+  margin: 0 auto;
+}
+
+.layout_blue {
+  background-color: #073042;
+}
+
+.layout_gray {
+  background-color: #272727;
+}
+
+.layout__inner {
+  margin: 0 auto;
+  padding: 0 70px;
+  max-width: 1140px;
+}
+
+@media screen and (max-width: 1024px) {
+  .layout__inner {
+    margin: 0 auto;
+    padding: 0 30px;
+    max-width: 884px;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .layout__inner {
+    margin: 0 auto;
+    padding: 0 14px;
+    max-width: 292px;
+  }
+
+  .layout__inner_wider {
+    padding: 0 10px;
+    max-width: 300px;
+  }
+}

@@ -1,0 +1,10 @@
+.body {
+  background: #202020;
+}
+
+.page {
+  font-family: "Inter", Arial, sans-serif;
+  color: #FFFFFF;
+  background: #202020;
+  height: 100vh;
+}

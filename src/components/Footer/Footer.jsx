@@ -7,7 +7,6 @@ function Footer() {
   return (
     <Layout>
       <footer className="footer">
-
         <div className="footer__item">
           <p className="footer__item-info">Учебный проект Яндекс.Практикум х BeatFilm.</p>
         </div>

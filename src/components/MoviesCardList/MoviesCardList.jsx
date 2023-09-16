@@ -2,19 +2,23 @@ import More from "../More/More"
 import MoviesCard from "../MoviesCard/MoviesCard"
 import "./MoviesCardList.css"
 
-function MoviesCardList(props) {
+function MoviesCardList({
+  cards,
+  isSelectionMode,
+  more,
+}) {
   return (
     <>
       <section className="cards">
         <ul className="card-list">
           {
-            props.cards.map((card) => (
-              <MoviesCard key={card._id} data={card} isSelectionMode={props.isSelectionMode}/>
+            cards.map((card) => (
+              <MoviesCard key={card._id} data={card} isSelectionMode={isSelectionMode}/>
             ))
           }
         </ul>
       </section>
-      <More more={props.more}/>
+      <More more={more}/>
     </>
   )
 }

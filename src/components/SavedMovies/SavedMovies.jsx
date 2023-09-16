@@ -5,7 +5,7 @@ import film3Path from "../../images/film-3.jfif"
 import Layout from "../Layout/Layout";
 import MoviesSearch from "../MoviesSearch/MoviesSearch";
 
-function SavedMovies(props) {
+function SavedMovies() {
   return (
     <Layout>
       <MoviesSearch/>

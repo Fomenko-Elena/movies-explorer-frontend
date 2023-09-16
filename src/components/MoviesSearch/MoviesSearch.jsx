@@ -1,6 +1,6 @@
 import "./MoviesSearch.css"
 
-function MoviesSearch(props) {
+function MoviesSearch() {
   return (
     <section className="search">
       <div className="search__phrase">

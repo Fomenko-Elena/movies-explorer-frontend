@@ -1,12 +1,17 @@
+import classNames from "classnames"
 import Layout from "../Layout/Layout"
 import "./Dialog.css"
 
-function Dialog(props) {
+function Dialog({
+  formClass,
+  onSubmit,
+  children
+}) {
   return (
     <Layout>
       <section className="dialog">
-        <form className={`dialog__form ${props.formClass}`} name="dialog_form" onSubmit={props.onSubmit}>
-          {props.children}
+        <form className={classNames('dialog__form', formClass)} name="dialog_form" onSubmit={onSubmit}>
+          {children}
         </form>
       </section>
     </Layout>

@@ -1,12 +1,15 @@
 import { useState } from "react"
 import "./MoviesCard.css"
 
-function MoviesCard(props) {
+function MoviesCard({
+  data,
+  isSelectionMode,
+}) {
   const [selected, setSelected] = useState(false)
 
   function getDuration() {
-    const hours = Math.floor(props.data.duration / 60);
-    const mins = props.data.duration % 60;
+    const hours = Math.floor(data.duration / 60);
+    const mins = data.duration % 60;
     return `${hours > 0 ? hours + 'ч' : ''}${mins > 0 ? mins + 'м' : ''}`;
   }
 
@@ -18,20 +21,20 @@ function MoviesCard(props) {
   }
 
   function handleCardCick(e) {
-    if (props.isSelectionMode) handleSelectionChanged(e); else handleRemoveClick(e)
+    if (isSelectionMode) handleSelectionChanged(e); else handleRemoveClick(e)
   }
 
   return (
     <li className="card" onClick={handleCardCick}>
-      <img className="card-image" alt={props.data.description} src={props.data.trailerLink}></img>
+      <img className="card-image" alt={data.description} src={data.trailerLink}></img>
       <div className="card-footer">
         <div className="card-footer-left">
-          <h2 className="card-description">{props.data.description}</h2>
+          <h2 className="card-description">{data.description}</h2>
           <p className="card-duration">{getDuration()}</p>
         </div>
         <div className="card-footer-right">
-          {props.isSelectionMode && <input type="checkbox" className="card-selection" checked={selected} onChange={handleSelectionChanged}></input>}
-          {!props.isSelectionMode && <input type="button" className="card-remove" onClick={handleRemoveClick}></input>}
+          {isSelectionMode && <input type="checkbox" className="card-selection" checked={selected} onChange={handleSelectionChanged}></input>}
+          {!isSelectionMode && <input type="button" className="card-remove" onClick={handleRemoveClick}></input>}
         </div>
       </div>
     </li>

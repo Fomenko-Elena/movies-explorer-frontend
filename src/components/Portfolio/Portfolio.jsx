@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import Layout from "../Layout/Layout"
 import './Portfolio.css'
 
-function Portfolio(props) {
+function Portfolio() {
   return (
     <Layout>
       <section className="portfolio">

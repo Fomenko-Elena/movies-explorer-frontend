@@ -17,8 +17,12 @@ function MoviesCard(props) {
   function handleRemoveClick(e) {
   }
 
+  function handleCardCick(e) {
+    if (props.isSelectionMode) handleSelectionChanged(e); else handleRemoveClick(e)
+  }
+
   return (
-    <li className="card">
+    <li className="card" onClick={handleCardCick}>
       <img className="card-image" alt={props.data.description} src={props.data.trailerLink}></img>
       <div className="card-footer">
         <div className="card-footer-left">

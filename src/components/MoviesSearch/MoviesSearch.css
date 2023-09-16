@@ -22,12 +22,17 @@
   border-bottom: #424242 1px solid;
   padding-bottom: 13px;
   padding-right: 40px;
+  transition: border 0.1s linear;
 }
 
 .search__text:focus {
   border: none;
   border-bottom: #FFF 1px solid;
   outline: none;
+}
+
+.search__text:hover {
+  border-bottom: #FFF 1px solid;
 }
 
 .search__button {

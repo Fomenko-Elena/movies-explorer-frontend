@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import DialogWithLogo from "../DialogWithLogo/DialogWithLogo"
 import "./Login.css"
 import Input from "../Input/Input"
@@ -9,15 +9,8 @@ import { useForm } from "../../hooks/formHooks"
 function Login({
   onLogin,
 }) {
-  const [values, handleChange, setValues] = useForm()
+  const [values, handleChange] = useForm({ email: "", password: "" })
   const [error, setError] = useState(null)
-
-  useEffect(() => {
-    setValues({
-      name: "",
-      password: "",
-    })
-  }, [])
 
   function handleSubmit(e) {
     e.preventDefault();

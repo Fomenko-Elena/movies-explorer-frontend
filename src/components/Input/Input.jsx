@@ -24,7 +24,7 @@ function Input({
       </div>
     )}>
       <Fragment>
-        <label for={name} className={classNames('input-label', { 'input-label_wide': wide })}>{label}</label>
+        <label htmlFor={name} className={classNames('input-label', { 'input-label_wide': wide })}>{label}</label>
         {isReadOnly && 
           <span className={classNames('input__read-only', { 'input__read-only_wide': wide })}>
             {value}

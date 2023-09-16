@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Dialog from "../Dialog/Dialog"
 import "./Profile.css";
 import Input from "../Input/Input";
@@ -16,14 +16,10 @@ function Profile({
 }) {
   const [isReadOnly, setReadOnly] = useState(true)
   const [error, setError] = useState(null)
-  const [values, handleChange, setValues] = useForm()
-
-  useEffect(() => {
-    setValues({
-      email: user.email || 'pochta@yandex.ru',
-      name: user.name || 'Виталий',
-    })
-  }, [])
+  const [values, handleChange] = useForm({
+    email: user.email || 'pochta@yandex.ru',
+    name: user.name || 'Виталий',
+  })
 
   function handleSubmit(e) {
     e.preventDefault();

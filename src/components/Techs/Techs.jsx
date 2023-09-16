@@ -19,27 +19,27 @@ function Techs() {
         <p className="techs__item-info">На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
       </div>
 
-      <ul class="techs__table">
-        <li class="techs__table-block">
-          <p class="techs__table-text">HTML</p>
+      <ul className="techs__table">
+        <li className="techs__table-block">
+          <p className="techs__table-text">HTML</p>
         </li>
-        <li class="techs__table-block">
-          <p class="techs__table-text">CSS</p>
+        <li className="techs__table-block">
+          <p className="techs__table-text">CSS</p>
         </li>
-        <li class="techs__table-block">
-          <p class="techs__table-text">JS</p>
+        <li className="techs__table-block">
+          <p className="techs__table-text">JS</p>
         </li>
-        <li class="techs__table-block">
-          <p class="techs__table-text">React</p>
+        <li className="techs__table-block">
+          <p className="techs__table-text">React</p>
         </li>
-        <li class="techs__table-block">
-          <p class="techs__table-text">Git</p>
+        <li className="techs__table-block">
+          <p className="techs__table-text">Git</p>
         </li>
-        <li class="techs__table-block">
-          <p class="techs__table-text">Express.js</p>
+        <li className="techs__table-block">
+          <p className="techs__table-text">Express.js</p>
         </li>
-        <li class="techs__table-block">
-          <p class="techs__table-text">mongoDB</p>
+        <li className="techs__table-block">
+          <p className="techs__table-text">mongoDB</p>
         </li>
       </ul>
     </MainSection>

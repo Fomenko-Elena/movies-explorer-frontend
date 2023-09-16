@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import DialogWithLogo from "../DialogWithLogo/DialogWithLogo";
 import "./Register.css"
 import Input from "../Input/Input";
@@ -10,16 +10,14 @@ import { nameValidationSettiings } from "../../utils/constants";
 function Register({
   onRegister,
 }) {
-  const [values, handleChange, setValues] = useForm()
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    setValues({
+  const [values, handleChange] = useForm(
+    {
       name: "",
       email: "",
       password: "123",
-    })
-  }, [])
+    }
+  )
+  const [error, setError] = useState(null)
 
   function handleSubmit(e) {
     e.preventDefault();

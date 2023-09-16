@@ -8,7 +8,7 @@
 .profile__submit-section {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
   padding-top: 204px;
 }
 
@@ -45,5 +45,20 @@
   .profile__submit-section {
     padding-top: 195px;
     gap: 16px;
+  }
+}
+
+@media screen and (max-width: 410px) {
+  .profile__submit-section {
+    padding-top: 363px;
+    gap: 18px;
+  }
+
+  .profile__link {
+    font-size: 12px;
+  }
+
+  .profile__signout-link {
+    font-size: 12px;
   }
 }

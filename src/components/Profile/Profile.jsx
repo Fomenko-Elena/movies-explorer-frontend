@@ -20,8 +20,8 @@ function Profile({
 
   useEffect(() => {
     setValues({
-      email: user.email || 'Test@user.com',
-      name: user.name || 'Test user',
+      email: user.email || 'pochta@yandex.ru',
+      name: user.name || 'Виталий',
     })
   }, [])
 

@@ -6,7 +6,7 @@ import Logo from "../Logo/Logo";
 function DialogWithLogo(props) {
   return (
     <Dialog formClass="dialog__form_normal" onSubmit={props.onSubmit}>
-      <Logo/>
+      <Logo className="dialog__logo"/>
       <DialogHeader header={props.header}/>
 
       {props.children}

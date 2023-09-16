@@ -42,8 +42,8 @@ function Register({
         <Input
           name="email"
           type="email"
-          label="Email"
-          placeholder="Email"
+          label="E-mail"
+          placeholder="E-mail"
           value={values.email}
           onChange={handleChange}
           required={true} />

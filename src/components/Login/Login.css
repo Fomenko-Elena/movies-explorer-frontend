@@ -3,11 +3,11 @@
   flex-direction: column;
   justify-content: center;
   gap: 16px;
-  padding-top: 138px;
+  padding-top: 127px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 410px) {
   .login__submit-section {
-    padding-top: 136px;
+    padding-top: 216px;
   }
 }

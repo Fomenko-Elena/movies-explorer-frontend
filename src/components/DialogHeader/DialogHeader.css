@@ -16,3 +16,14 @@
     padding-bottom: 96px;
   }
 }
+
+@media screen and (max-width: 410px) {
+  .dialog__header_wide {
+    padding-bottom: 81px;
+  }
+
+  .dialog__header {
+    align-self: center;
+    padding: 50px 0 80px 0;
+  }
+}

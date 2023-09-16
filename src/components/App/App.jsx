@@ -54,7 +54,7 @@ function App() {
       setTimeout(() => {
         const userData = { 
           _id: 1,
-          name: 'Test User',
+          name: 'Виталий',
           email: loginData.email
         };
         setCurrentUser(userData);

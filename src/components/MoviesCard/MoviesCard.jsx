@@ -26,10 +26,10 @@ function MoviesCard({
 
   return (
     <li className="card" onClick={handleCardCick}>
-      <img className="card-image" alt={data.description} src={data.trailerLink}></img>
+      <img className="card-image" alt={data.nameRU} src={`https://api.nomoreparties.co/${data.image.url}`}></img>
       <div className="card-footer">
         <div className="card-footer-left">
-          <h2 className="card-description">{data.description}</h2>
+          <h2 className="card-description">{data.nameRU}</h2>
           <p className="card-duration">{getDuration()}</p>
         </div>
         <div className="card-footer-right">

@@ -15,12 +15,14 @@ import NavigationMenu from '../NavigationMenu/NavigationMenu'
 import PageNotFound from '../PageNotFound/PageNotFound'
 import { WindowSizeContext } from '../../contexts/WindowSizeContext'
 import { mainApi } from '../../utils/MainApi'
+import { moviesData } from '../../utils/MoviesData'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(noUser)
   const [menuVisible, setMenuVisible] = useState(false)
-  const [moviesStatus, setMoviesStatus] = useState(ComponentStatus.Loading)
-  const [filteredMovies, setFilteredMovies] = useState([])
+  const [moviesStatus, setMoviesStatus] = useState(ComponentStatus.Successed)
+  const [filterConditions, setFilterConditions] = useState({ phrase: "", shortMovie: false })
+  const [moviesCards, setMoviesCards] = useState([])
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -37,8 +39,13 @@ function App() {
   }, [windowSizeContext])
 
   function handleSignOut() {
-    setCurrentUser(noUser);
-    navigate('/signin', { replace: true });
+    return mainApi
+      .signOut()
+      .then(() => {
+        moviesData.clear();
+        setCurrentUser(noUser);
+        navigate('signin', { replace: true });
+      })  
   }
 
   function handleRegister(registrationData) {
@@ -75,14 +82,20 @@ function App() {
     setMenuVisible(false)
   }
 
-  function handleFilterMovies() {
-    if (filteredMovies.length) return;
+  function handleFilterMovies({phrase, shortMovie, count}) {
+    setFilterConditions({
+      phrase,
+      shortMovie
+    })
 
     setMoviesStatus(ComponentStatus.Loading)
-    setTimeout(() => {
-      setMoviesStatus(ComponentStatus.Successed);
-      setFilteredMovies(predefinedMovies);
-    }, 500)
+
+    moviesData
+      .filterAsync({ phrase, shortMovie })
+      .then((cards) => {
+        setMoviesStatus(ComponentStatus.Successed)
+        setMoviesCards(cards)
+      })
   }
 
   function handleSaveProfile(profile) {
@@ -114,7 +127,7 @@ function App() {
           />
           <Route
             path="/movies" 
-            element={<Movies OnFilter={handleFilterMovies} componentStatus={moviesStatus} cards={filteredMovies}/>} 
+            element={<Movies filterConditions={filterConditions} onFilter={handleFilterMovies} componentStatus={moviesStatus} cards={moviesCards}/>} 
           />
           <Route
             path="/saved-movies" 
@@ -130,7 +143,7 @@ function App() {
           />
           <Route
             path="/profile"
-            element={<Profile OnSignOut={handleSignOut} OnSave={handleSaveProfile} user={currentUser}/>}
+            element={<Profile onSignOut={handleSignOut} onSave={handleSaveProfile} user={currentUser}/>}
           />
           <Route
             path="*"

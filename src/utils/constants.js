@@ -47,15 +47,14 @@ export const ComponentStatus = {
   Failed: 'failed,'
 }
 
-const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+const moviesApiUrl = process.env.REACT_APP_MOVIES_API_URL || 'https://api.nomoreparties.co/beatfilm-movies';
 const mainApiUrl = process.env.REACT_APP_MAIN_API_URL || 'http://localhost:3000';
 
-export const apiSettings = {
-    baseUrl: apiUrl,
+export const moviesApiSettings = {
+    baseUrl: moviesApiUrl,
     headers: {
         'Content-Type': 'application/json'
     },
-    credentials: 'include',
 }
 
 export const mainApiSettings = {

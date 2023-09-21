@@ -67,15 +67,15 @@
   line-height: 18px;
   transition: opacity 0.1s linear;
 
-  background: url(./../../images/smalltumb.svg) no-repeat;
-  background-size: 39px 28px;
-  background-position-y: -2px;
-}
-
-.search__short:checked {
   background: url(./../../images/smalltumboff_hover.svg) no-repeat;
   background-size:39px 28px;
   background-position: -4px -2px;
+}
+
+.search__short:checked {
+  background: url(./../../images/smalltumb.svg) no-repeat;
+  background-size: 39px 28px;
+  background-position-y: -2px;
 }
 
 .search__short:hover{

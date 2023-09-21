@@ -3,18 +3,27 @@ import Layout from "../Layout/Layout";
 import MoviesSearch from "../MoviesSearch/MoviesSearch";
 import Preloader from "../Preloader/Preloader";
 import { ComponentStatus, LayoutWidthStyle } from "../../utils/constants";
-import { useEffect } from "react";
+import { useState } from "react";
 
 function Movies({
   componentStatus,
   cards,
-  OnFilter,
+  filterConditions,
+  onFilter,
 }) {
-  useEffect(() => { OnFilter(); }, [])
+  const [filter, setFilter] = useState(filterConditions)
+
+  function handleFilterChange(filterConditions) {
+    setFilter(filterConditions)
+    onFilter({
+      count: 16,
+      ...filterConditions
+    })
+  }
 
   return (
     <Layout widthStyle={LayoutWidthStyle.Wider}>
-      <MoviesSearch/>
+      <MoviesSearch onFilter={handleFilterChange} filter={filter} />
       {componentStatus === ComponentStatus.Loading && <Preloader/>}
       {componentStatus === ComponentStatus.Successed && <MoviesCardList isSelectionMode={true} more={true} cards={cards}/>}
       {componentStatus === ComponentStatus.Failed && <>Ошибка</>}

@@ -13,7 +13,7 @@ function MoviesCardList({
         <ul className="card-list">
           {
             cards.map((card) => (
-              <MoviesCard key={card._id} data={card} isSelectionMode={isSelectionMode}/>
+              <MoviesCard key={card.id} data={card} isSelectionMode={isSelectionMode}/>
             ))
           }
         </ul>

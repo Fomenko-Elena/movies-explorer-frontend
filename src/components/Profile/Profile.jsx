@@ -11,8 +11,8 @@ import { Link } from "react-router-dom"
 
 function Profile({
   user,
-  OnSave,
-  OnSignOut,
+  onSave,
+  onSignOut,
 }) {
   const [isReadOnly, setReadOnly] = useState(true)
   const [error, setError] = useState(null)
@@ -23,7 +23,7 @@ function Profile({
 
   function handleSubmit(e) {
     e.preventDefault();
-    OnSave(values)
+    onSave(values)
       .then((profile) => setReadOnly(true))
       .catch(error => setError(error.message));
   }
@@ -35,7 +35,10 @@ function Profile({
 
   function handleSignoutClick(e) {
     e.preventDefault();
-    OnSignOut();
+    onSignOut()
+      .catch(() => {
+        setError('Ошибка при выходе из аккаунта');
+      })
   }
 
 

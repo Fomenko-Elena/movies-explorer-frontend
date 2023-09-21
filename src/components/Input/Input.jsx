@@ -15,7 +15,8 @@ function Input({
   required,
   minLength,
   maxLength,
-  isReadOnly
+  isReadOnly,
+  pattern,
 }) {
   return (
     <Wrapper condition={!wide} wrapper={(children) => (
@@ -41,6 +42,7 @@ function Input({
             required={required}
             minLength={minLength}
             maxLength={maxLength}
+            pattern={pattern}
           />
         }
         <span className={classNames('input-error', { 'input-error_wide': wide }, `${name}-error`)}>{error}</span>

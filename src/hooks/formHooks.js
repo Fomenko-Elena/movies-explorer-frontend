@@ -13,8 +13,8 @@ export function useForm(initialState) {
   return [values, handleChange, setValues];
 }
 
-export function useFormWithValidation() {
-  const [values, setValues] = React.useState({});
+export function useFormWithValidation({ initialState, validationSchema }) {
+  const [values, setValues] = React.useState(initialState || {});
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
 
@@ -22,9 +22,18 @@ export function useFormWithValidation() {
     const target = event.target;
     const name = target.name;
     const value = target.value;
+
     setValues({...values, [name]: value});
-    setErrors({...errors, [name]: target.validationMessage });
-    setIsValid(target.closest("form").checkValidity());
+
+    const validator = (validationSchema || {})[name];
+    if (!validator) {
+      setErrors({...errors, [name]: target.validationMessage });
+      setIsValid(target.closest("form").checkValidity()); 
+    } else {
+      const { message, isValid } = validator(target);
+      setErrors({...errors, [name]: message });
+      setIsValid(target.closest("form").checkValidity() && isValid); 
+    }
   };
 
   const resetForm = useCallback(

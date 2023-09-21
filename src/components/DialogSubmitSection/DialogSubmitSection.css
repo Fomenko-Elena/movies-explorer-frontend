@@ -16,6 +16,11 @@
   opacity: 0.8;
 }
 
+.dialog__submit:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 .dialog__submit_wide {
   color: #FFF;
   font-size: 13px;

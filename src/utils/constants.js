@@ -1,3 +1,5 @@
+import validator from "validator";
+
 import film1Path from "../images/film-1.jfif"
 import film2Path from "../images/film-2.jfif"
 import film3Path from "../images/film-3.jfif"
@@ -36,12 +38,54 @@ export const nameValidationSettiings = {
   required: true,
   minLength: 2,
   maxLength: 30,
+  pattern: '[a-zA-Zа-яА-Я]+[a-zA-Zа-яА-Я \\-]*',
 }
 
 export const ComponentStatus = {
   Loading: 'loading',
   Successed: 'successed',
   Failed: 'failed,'
+}
+
+const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+const mainApiUrl = process.env.REACT_APP_MAIN_API_URL || 'http://localhost:3000';
+
+export const apiSettings = {
+    baseUrl: apiUrl,
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+}
+
+export const mainApiSettings = {
+    baseUrl: mainApiUrl,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+}
+
+export const HTTP_ERR_UNAUTHORIZED = 401;
+export const HTTP_ERR_CONFLICT = 409;
+
+
+export const validationSchemas = {
+  email: (target) => {
+    const validationMessage = target.validationMessage;
+    if (validationMessage) return {
+      message: validationMessage,
+      isValid: false,
+    }
+    const value = target.value;
+    if (validator.isEmail(value)) {
+      return { isValid: true }
+    }
+    return {
+      message: 'Неправильный формат email',
+      isValid: false,
+    }
+  }
 }
 
 export const predefinedMovies = [

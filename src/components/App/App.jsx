@@ -14,6 +14,7 @@ import SavedMovies from '../SavedMovies/SavedMovies'
 import NavigationMenu from '../NavigationMenu/NavigationMenu'
 import PageNotFound from '../PageNotFound/PageNotFound'
 import { WindowSizeContext } from '../../contexts/WindowSizeContext'
+import { mainApi } from '../../utils/MainApi'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(noUser)
@@ -41,25 +42,28 @@ function App() {
   }
 
   function handleRegister(registrationData) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        reject({message: 'Test error'})
-      }, 500)
-    })
+    return mainApi
+      .signUp(registrationData)
+      .then((userData) => {
+        return mainApi
+            .signIn({ 
+              email: registrationData.email,
+              password: registrationData.password 
+            })
+            .then(() => userData)
+      })
+      .then((userData) => {
+          setCurrentUser(userData);
+          navigate('/movies', { replace: true })
+      })
   }
 
   function handleLogin(loginData) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const userData = { 
-          _id: 1,
-          name: 'Виталий',
-          email: loginData.email
-        };
+    return mainApi
+      .signIn(loginData)
+      .then((userData) => {
         setCurrentUser(userData);
-        navigate('/', { replace: true });
-        resolve(userData);
-      }, 500)
+        navigate('/movies', { replace: true })
     })
   }
 

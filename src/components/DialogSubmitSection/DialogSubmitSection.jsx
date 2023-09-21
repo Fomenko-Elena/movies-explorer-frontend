@@ -10,11 +10,12 @@ function DialogSubmitSection({
   linkText,
   link,
   error,
+  isValid,
 }) {
   return (
     <div className={className}>
       <span className="dialog__error">{error}</span>
-      <button className={classNames('dialog__submit', { 'dialog__submit_wide': wide })} type="submit">{submitText}</button>
+      <button className={classNames('dialog__submit', { 'dialog__submit_wide': wide })} type="submit" disabled={!isValid}>{submitText}</button>
       <p className="dialog__text">
         {notes}
         <Link className={classNames('dialog__link', { 'dialog__link_wide': wide })} to={link}>{linkText}</Link>

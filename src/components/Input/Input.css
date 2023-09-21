@@ -1,7 +1,7 @@
 .input-field {
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 12px auto 10px;
+  grid-template-rows: 12px auto minmax(10px, auto);
   gap: 10px;
 }
 
@@ -71,10 +71,12 @@
 }
 
 .input-error {
+  display: block;
+  min-height: 10px;
   color: #EE3465;
   font-size: 10px;
   font-weight: 400;
-  line-height: normal;
+  line-height: 10px;
 }
 
 .input-error_wide  {

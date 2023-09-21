@@ -10,7 +10,7 @@ function Dialog({
   return (
     <Layout>
       <section className="dialog">
-        <form className={classNames('dialog__form', formClass)} name="dialog_form" onSubmit={onSubmit}>
+        <form className={classNames('dialog__form', formClass)} name="dialog_form" onSubmit={onSubmit} noValidate>
           {children}
         </form>
       </section>

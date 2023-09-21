@@ -5,6 +5,7 @@ import Input from "../Input/Input"
 import Inputs from "../Inputs/Inputs"
 import DialogSubmitSection from "../DialogSubmitSection/DialogSubmitSection"
 import { useForm } from "../../hooks/formHooks"
+import { HTTP_ERR_UNAUTHORIZED } from "../../utils/constants"
 
 function Login({
   onLogin,
@@ -16,7 +17,12 @@ function Login({
     e.preventDefault();
 
     onLogin(values)
-      .catch(error => setError(error.message));
+      .catch(error => {
+        if (error.status === HTTP_ERR_UNAUTHORIZED) 
+          setError('Вы ввели неправильный логин или пароль');
+        else
+          setError('При авторизации произошла ошибка');
+      });
   }
 
   return (

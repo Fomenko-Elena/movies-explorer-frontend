@@ -1,0 +1,133 @@
+.search {
+  display: flex;
+  flex-direction: column;
+  gap: 32px 0;
+  padding: 70px 0 48px 0;
+}
+
+.search__phrase {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.search__text {
+  width: auto;
+  color: #FFF;
+  font-size: 28px;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  border-bottom: #424242 1px solid;
+  padding-bottom: 13px;
+  padding-right: 40px;
+  transition: border 0.1s linear;
+}
+
+.search__text:focus {
+  border: none;
+  border-bottom: #FFF 1px solid;
+  outline: none;
+}
+
+.search__text:hover {
+  border-bottom: #FFF 1px solid;
+}
+
+.search__button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  border: none;
+  background: url(./../../images/find.svg) no-repeat;
+  background-position: 100% 0;
+  cursor: pointer;
+  transition: opacity 0.1s linear;
+}
+
+.search__button:hover {
+  opacity: 0.8;
+}
+
+.search__options {
+  display: flex;
+  flex-direction: row;
+  gap: 0 14px;
+}
+
+.search__short {
+  appearance: none;
+  width: 36px;
+  height: 20px;
+  border: none;
+  line-height: 18px;
+  transition: opacity 0.1s linear;
+
+  background: url(./../../images/smalltumb.svg) no-repeat;
+  background-size: 39px 28px;
+  background-position-y: -2px;
+}
+
+.search__short:checked {
+  background: url(./../../images/smalltumboff_hover.svg) no-repeat;
+  background-size:39px 28px;
+  background-position: -4px -2px;
+}
+
+.search__short:hover{
+  opacity: 0.8;
+}
+
+.search__short-label {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (max-width: 1100px) {
+  .search {
+    padding: 80px 0 60px 0;
+    gap: 30px;
+  }
+
+  .search__options {
+    justify-content: end;
+    flex-direction: row-reverse;
+    align-items: end;
+    gap: 16px;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .search {
+    padding: 90px 0 51px 0;
+    gap: 40px;
+  }
+
+  .search__button {
+    top: -6px;
+    right: 4px;
+  }
+
+  .search__text {
+    font-size: 18px;
+    font-weight: 500;
+    padding-bottom: 15px;
+  }
+
+  .search__options {
+    justify-content: center;
+  }
+
+  .search__short-label {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 18px;
+  }
+}

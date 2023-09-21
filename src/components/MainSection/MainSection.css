@@ -1,0 +1,38 @@
+.main-section {
+  display: flex;
+  flex-direction: column;
+  padding: 110px 0;
+}
+
+.main-section__header {
+  border-bottom: 1px solid #DADADA;
+  padding-bottom: 25px;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.88px;
+  margin: 0;
+}
+
+@media screen and (max-width: 1100px) {
+  .main-section {
+    padding: 92px 20px;
+  }
+
+  .main-section__header {
+    padding-bottom: 23px;
+  }
+}
+
+
+@media screen and (max-width: 630px) {
+  .main-section {
+    padding: 70px 4px 69px;
+  }
+
+  .main-section__header {
+    padding-bottom: 28px;
+    font-size: 18px;
+    line-height: normal;
+    letter-spacing: -0.72px;
+  }
+}

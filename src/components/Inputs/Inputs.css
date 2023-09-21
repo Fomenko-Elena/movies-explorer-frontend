@@ -1,0 +1,21 @@
+.inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputs_wide {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: auto 16px 19px auto 16px;
+  gap: 0;
+}
+
+@media screen and (max-width: 410px) {
+  .inputs {
+    min-width: 260px;
+  }
+
+  .inputs_wide {
+    width: 260px;
+  }
+}

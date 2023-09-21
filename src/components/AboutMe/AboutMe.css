@@ -1,0 +1,142 @@
+.about {
+  padding-bottom: 97px;
+}
+
+.about__user {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0 40px;
+}
+
+.about__user-name {
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 58px;
+  padding-top: 66px;
+  letter-spacing: -2px;
+  margin: 0;
+}
+
+.about__user-job {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  padding-top: 18px;
+  margin: 0;
+}
+
+.about__user-info {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  padding-top: 26px;
+  margin: 0;
+  max-width: 600px;
+}
+
+.about__github-item {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.94px;
+  color: #FFFFFF;
+  margin-top: auto;
+  text-decoration: none;
+  padding-bottom: 5px;
+}
+
+.about__github-item:hover {
+  opacity: 0.7;
+}
+
+.about__avatar {
+  margin-top: 66px;
+}
+
+.about__avatar-foto {
+  height: 327px;
+  width: 270px;
+  border-radius: 10px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.about__text {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 1100px) {
+  .about {
+    padding-bottom: 86px;
+  }
+
+  .about__user-name {
+    font-size: 40px;
+    font-style: normal;
+    line-height: 40px;
+    letter-spacing: -1.6px;
+  }
+
+  .about__user-job {
+    font-size: 12px;
+    line-height: 18px;
+    padding-top: 16px;
+  }
+
+  .about__user-info {
+    font-size: 12px;
+    line-height: 18px;
+    padding-top: 20px;
+  }
+
+  .about__avatar-foto {
+    height: 307px;
+    width: 255px;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .about {
+    padding: 70px 0 64px;
+  }
+
+  .about__user {
+    flex-direction: column-reverse;
+  }
+
+  .about__avatar {
+    margin-top: 60px;
+  }
+
+  .about__avatar-foto {
+    height: 352px;
+    width: 100%;
+  }
+
+  .about__user-name {
+    font-size: 30px;
+    line-height: normal;
+    letter-spacing: -1.2px;
+    padding-top: 37px;
+  }
+
+  .about__user-job {
+    font-size: 11px;
+    line-height: 16px;
+    font-weight: 400;
+    padding-top: 20px;
+  }
+
+  .about__user-info {
+    font-size: 11px;
+    line-height: 16px;
+    font-weight: 400;
+    padding-top: 20px;
+  }
+
+  .about__github-item {
+    margin: 40px 0 0;
+  }
+}

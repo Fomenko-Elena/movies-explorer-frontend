@@ -1,0 +1,97 @@
+.card {
+  display: block;
+  border-radius: 10px;
+  background-color: #222;
+  box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.05);
+  overflow: auto;
+  cursor: pointer;
+}
+
+.card:hover {
+  filter: drop-shadow(0px 16px 24px rgba(0, 0, 0, 0.90));
+}
+
+.card-image {
+  object-fit: cover;
+  width: 100%;
+  height: 151px;
+}
+
+.card-footer {
+  padding: 10px 12px 14px 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card-footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-description {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: normal;
+  padding: 0;
+  margin: 0;
+  max-width: 206px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-duration {
+  color: #8B8B8B;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: normal;
+  padding: 0;
+  margin: 0;
+}
+
+.card-selection {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: url(./../../images/unchecked.svg) no-repeat;
+  background-position: -6px -3px;
+  cursor: pointer;
+  transition: opacity 0.1s linear;
+}
+
+.card-selection:hover {
+  opacity: 0.7;
+}
+
+.card-selection:checked {
+  background: url(./../../images/checked.svg) no-repeat;
+  background-position: -6px -3px;
+}
+
+.card-remove {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  mask: url(./../../images/remove.svg) no-repeat;
+  cursor: pointer;
+  fill: #FFF;
+  transition: opacity 0.1s linear;
+}
+
+.card-remove:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 1100px) {
+  .card-image {
+    height: 190px;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .card-image {
+    height: 168px;
+  }
+}

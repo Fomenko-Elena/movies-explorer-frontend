@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import DialogWithLogo from "../DialogWithLogo/DialogWithLogo";
 import "./Register.css"
 import Input from "../Input/Input";
@@ -19,8 +19,10 @@ function Register({
     validationSchema: {
       email: validationSchemas.email
     }
-})
+  })
   const [error, setError] = useState("")
+
+  useEffect(() => setError(""), [values, errors, isValid])
 
   function handleSubmit(e) {
     e.preventDefault();

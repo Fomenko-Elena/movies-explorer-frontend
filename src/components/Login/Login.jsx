@@ -1,17 +1,27 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import DialogWithLogo from "../DialogWithLogo/DialogWithLogo"
 import "./Login.css"
 import Input from "../Input/Input"
 import Inputs from "../Inputs/Inputs"
 import DialogSubmitSection from "../DialogSubmitSection/DialogSubmitSection"
-import { useForm } from "../../hooks/formHooks"
-import { HTTP_ERR_UNAUTHORIZED } from "../../utils/constants"
+import { useFormWithValidation } from "../../hooks/formHooks"
+import { HTTP_ERR_UNAUTHORIZED, validationSchemas } from "../../utils/constants"
 
 function Login({
   onLogin,
 }) {
-  const [values, handleChange] = useForm({ email: "", password: "" })
-  const [error, setError] = useState(null)
+  const { values, handleChange, errors, isValid } = useFormWithValidation({
+    initialState: {
+      email: "",
+      password: "",
+    },
+    validationSchema: {
+      email: validationSchemas.email
+    }
+  })
+  const [error, setError] = useState("")
+
+  useEffect(() => setError(""), [values, errors, isValid])
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -34,6 +44,7 @@ function Login({
           label="E-mail"
           placeholder="E-mail"
           value={values.email}
+          error={errors.email}
           onChange={handleChange}
           wide={false}
           required={true} />
@@ -44,10 +55,12 @@ function Login({
           label="Пароль"
           placeholder="Пароль"
           value={values.password}
+          error={errors.password}
           onChange={handleChange}
           required={true} />
       </Inputs>
       <DialogSubmitSection
+        isValid={isValid}
         className="login__submit-section"
         submitText="Войти"
         notes="Ещё не зарегистрированы?"

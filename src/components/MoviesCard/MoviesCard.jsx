@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./MoviesCard.css"
 
 function MoviesCard({
@@ -30,7 +31,9 @@ function MoviesCard({
 
   return (
     <li className="card" onClick={handleCardCick}>
-      <img className="card-image" alt={data.nameRU} src={data.image}></img>
+      <Link className="card-link"  target="_blank" to={data.trailerLink}>
+        <img className="card-image" alt={data.nameRU} src={data.image}></img>
+      </Link>
       <div className="card-footer">
         <div className="card-footer-left">
           <h2 className="card-description">{data.nameRU}</h2>

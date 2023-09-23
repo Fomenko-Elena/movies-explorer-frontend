@@ -19,7 +19,7 @@ function Header({
   }
 
   return (
-    <Layout highlight={highlight} component="header">
+    <Layout highlight={highlight} component="header" className="header">
       <div className="header">
         <Logo />
         {currentUser === noUser && (

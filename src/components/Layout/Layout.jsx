@@ -7,14 +7,21 @@ function Layout({
   highlight,
   children,
   widthStyle,
+  className,
 }) {
   return (
-    <Component className={classNames('layout', {
+    <Component className={classNames('layout',
+    {
       'layout_blue': highlight === LayoutHighlight.Blue,
       'layout_gray': highlight === LayoutHighlight.Gray,
-      'layout_wider': widthStyle === LayoutWidthStyle.Wider
+      'layout_wider': widthStyle === LayoutWidthStyle.Wider,
+      [`layout_${className}`]: className,
     })}>
-      <div className={classNames('layout__inner', {'layout__inner_wider': widthStyle === LayoutWidthStyle.Wider})}>
+      <div className={classNames('layout__inner', 
+        {
+          'layout__inner_wider': widthStyle === LayoutWidthStyle.Wider,
+          [`layout__inner_${className}`]: className,
+        })}>
         {children}
       </div>
     </Component>

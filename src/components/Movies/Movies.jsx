@@ -103,7 +103,7 @@ function Movies({
   }
 
   return (
-    <Layout widthStyle={LayoutWidthStyle.Wider} component="main">
+    <Layout widthStyle={LayoutWidthStyle.Wider} component="main" className="movies">
       <MoviesSearch onFilter={handleFilterChange} filter={filter} />
       {componentStatus === ComponentStatus.Loading && <Preloader />}
       {componentStatus === ComponentStatus.Successed &&

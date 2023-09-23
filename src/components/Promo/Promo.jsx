@@ -11,7 +11,7 @@ function Promo({
   }
 
   return (
-    <Layout highlight={LayoutHighlight.Blue} component='section'>
+    <Layout highlight={LayoutHighlight.Blue} component="section" className="promo">
       <div className="promo">
         <div className='promo__main'>
           <div className="promo__left-pane">

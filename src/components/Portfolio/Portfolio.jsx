@@ -4,7 +4,7 @@ import './Portfolio.css'
 
 function Portfolio() {
   return (
-    <Layout component="section">
+    <Layout component="section" className="portfoio">
       <div className="portfolio">
 
         <div className="portfolio__header">

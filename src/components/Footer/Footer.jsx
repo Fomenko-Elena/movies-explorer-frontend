@@ -5,7 +5,7 @@ import './Footer.css'
 
 function Footer() {
   return (
-    <Layout component="footer">
+    <Layout component="footer" className="footer">
       <div className="footer">
         <div className="footer__item">
           <p className="footer__item-info">Учебный проект Яндекс.Практикум х BeatFilm.</p>

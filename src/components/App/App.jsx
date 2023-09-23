@@ -19,6 +19,7 @@ import { moviesData } from '../../utils/MoviesData'
 import { logErrorHandler } from '../../utils/errors'
 import { useMount } from '../../hooks/componentHook'
 import { savedMoviesData } from '../../utils/SavedMoviesData'
+import ProtectedRoute from '../ProptectedRoute/ProtectedRoute'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(noUser)
@@ -156,11 +157,26 @@ function App() {
           />
           <Route
             path="/movies" 
-            element={<Movies onFilter={handleFilterMovies} onSelect={handleAddSelection} onRemove={handleRemoveSelection}/>} 
+            element={
+              <ProtectedRoute
+                loggedIn={currentUser !== noUser}
+                component={Movies}
+                onFilter={handleFilterMovies}
+                onSelect={handleAddSelection}
+                onRemove={handleRemoveSelection}
+              />
+            }
           />
           <Route
             path="/saved-movies" 
-            element={<SavedMovies onFilter={handleSavedMoviesFilter} onRemove={handleRemoveSavedMovie}/>} 
+            element={
+              <ProtectedRoute
+                loggedIn={currentUser !== noUser}
+                component={SavedMovies}
+                onFilter={handleSavedMoviesFilter}
+                onRemove={handleRemoveSavedMovie}
+              />
+            }
           />
           <Route
             path="/signup"
@@ -172,7 +188,15 @@ function App() {
           />
           <Route
             path="/profile"
-            element={<Profile onSignOut={handleSignOut} onSave={handleSaveProfile} user={currentUser}/>}
+            element={
+              <ProtectedRoute
+                loggedIn={currentUser !== noUser}
+                component={Profile}
+                onSignOut={handleSignOut} 
+                onSave={handleSaveProfile} 
+                user={currentUser}
+              />
+            }
           />
           <Route
             path="*"

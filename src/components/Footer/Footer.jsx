@@ -5,8 +5,8 @@ import './Footer.css'
 
 function Footer() {
   return (
-    <Layout>
-      <footer className="footer">
+    <Layout component="footer">
+      <div className="footer">
         <div className="footer__item">
           <p className="footer__item-info">Учебный проект Яндекс.Практикум х BeatFilm.</p>
         </div>
@@ -22,7 +22,7 @@ function Footer() {
             <a className="footer__column-links" href="https://github.com" target="_blank" rel="noreferrer">Github</a>
           </li>
         </ul>
-      </footer>
+      </div>
     </Layout>
   );
 }

@@ -19,8 +19,8 @@ function Header({
   }
 
   return (
-    <Layout highlight={highlight}>
-      <header className="header">
+    <Layout highlight={highlight} component="header">
+      <div className="header">
         <Logo />
         {currentUser === noUser && (
           <nav className="header__nav-right-bar">
@@ -40,7 +40,7 @@ function Header({
             </nav>
           </>
         )}
-      </header>
+      </div>
     </Layout>
   )
 }

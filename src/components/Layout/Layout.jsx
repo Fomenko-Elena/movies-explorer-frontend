@@ -3,12 +3,13 @@ import { LayoutHighlight, LayoutWidthStyle } from '../../utils/constants'
 import './Layout.css'
 
 function Layout({
+  component: Component = 'div',
   highlight,
   children,
   widthStyle,
 }) {
   return (
-    <div className={classNames('layout', {
+    <Component className={classNames('layout', {
       'layout_blue': highlight === LayoutHighlight.Blue,
       'layout_gray': highlight === LayoutHighlight.Gray,
       'layout_wider': widthStyle === LayoutWidthStyle.Wider
@@ -16,7 +17,7 @@ function Layout({
       <div className={classNames('layout__inner', {'layout__inner_wider': widthStyle === LayoutWidthStyle.Wider})}>
         {children}
       </div>
-    </div>
+    </Component>
   )
 }
 

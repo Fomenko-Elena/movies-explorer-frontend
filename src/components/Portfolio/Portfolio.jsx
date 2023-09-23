@@ -4,8 +4,8 @@ import './Portfolio.css'
 
 function Portfolio() {
   return (
-    <Layout>
-      <section className="portfolio">
+    <Layout component="section">
+      <div className="portfolio">
 
         <div className="portfolio__header">
           <h2 className="portfolio__header-item">Портфолио</h2>
@@ -34,7 +34,7 @@ function Portfolio() {
           </li> 
         </ul>    
 
-      </section>
+      </div>
     </Layout>
   )
 }

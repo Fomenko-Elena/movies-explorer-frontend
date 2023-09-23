@@ -8,12 +8,12 @@ function Dialog({
   children
 }) {
   return (
-    <Layout>
-      <section className="dialog">
+    <Layout component="secion">
+      <div className="dialog">
         <form className={classNames('dialog__form', formClass)} name="dialog_form" onSubmit={onSubmit} noValidate>
           {children}
         </form>
-      </section>
+      </div>
     </Layout>
   )
 }

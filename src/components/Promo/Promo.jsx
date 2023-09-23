@@ -11,8 +11,8 @@ function Promo({
   }
 
   return (
-    <Layout highlight={LayoutHighlight.Blue}>
-      <section className="promo">
+    <Layout highlight={LayoutHighlight.Blue} component='section'>
+      <div className="promo">
         <div className='promo__main'>
           <div className="promo__left-pane">
             <h1 className="promo__header">Учебный проект студента факультета <span className="promo__header_nowrap">Веб-разработки</span>.</h1>
@@ -23,7 +23,7 @@ function Promo({
           </div>
         </div>
         <button className="promo__about" onClick={handleFindMoreClick}>Узнать больше</button>
-      </section>
+      </div>
     </Layout>
   )
 }

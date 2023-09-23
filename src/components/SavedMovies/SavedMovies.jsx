@@ -35,7 +35,7 @@ function SavedMovies({
   }
 
   return (
-    <Layout>
+    <Layout component="main">
       <MoviesSearch onFilter={handleFilterChange} filter={filter}/>
       <MoviesCardList isSelectionMode={false} more={false} cards={cards} onRemove={handleRemoveSelection}/>
     </Layout>

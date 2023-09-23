@@ -10,7 +10,8 @@ function MoviesSearch({
   const [shortMovie, setShortMovie] = useState(filter.shortMovie)
   const didMount = useMount()
 
-  function handleSearchClick() {
+  function handleSubmit(e) {
+    e.preventDefault();
     doSearch();
   }
 
@@ -42,10 +43,10 @@ function MoviesSearch({
 
   return (
     <section className="search">
-      <div className="search__phrase">
+      <form className="search__phrase" onSubmit={handleSubmit}>
         <input type="text" className="search__text" placeholder="Фильм" value={phrase} onChange={handlePhraseChange}></input>
-        <input type="button" className="search__button" onClick={handleSearchClick}></input>
-      </div>
+        <button type="submit" className="search__button"/>
+      </form>
       <div className="search__options">
         <input type="checkbox" className="search__short" checked={shortMovie} onChange={handleShortMovieChange}></input>
         <label className="search__short-label">Короткометражки</label>

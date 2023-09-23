@@ -1,10 +1,25 @@
 import { mainApi } from "./MainApi";
-import { getAbsoluteImageUrl } from "./utils";
+import { containsPhrase, filterShortMovie, preparePhrase } from "./filterUtils";
 
-class SavedMoviesData{
+class SavedMoviesData {
   constructor(api) {
     this.api = api;
     this.movies = {};
+  }
+
+  filterAsync(filter) {
+    const { phrase, shortMovie } = filter;
+    return new Promise((resolve) => {
+      if (!phrase) {
+        resolve(Object.entries(this.movies).map(([_, card]) => card).filter((card) => filterShortMovie(card.duration, shortMovie)));
+      } else {
+        var words = preparePhrase(phrase);
+        resolve(Object.entries(this.movies).map(([_, card]) => card).filter((card) =>
+          (containsPhrase(card.nameRU, words) || containsPhrase(card.nameEN, words))
+          && filterShortMovie(card.duration, shortMovie)
+        ))
+      }
+    })
   }
 
   load() {
@@ -15,8 +30,8 @@ class SavedMoviesData{
         movies.forEach((movie) => {
           this.movies = {
             [movie.movieId]: {
-                savedMovieId: movie._id,
-                ...movie,
+              savedMovieId: movie._id,
+              ...movie,
             },
             ...this.movies,
           }
@@ -38,6 +53,7 @@ class SavedMoviesData{
           [savedMovieData.movieId]: savedMovieData,
           ...this.movies,
         };
+        savedMovieData.savedMovieId = savedMovieData._id;
         cardData.savedMovieId = savedMovieData._id;
         return savedMovieData;
       })
@@ -47,7 +63,7 @@ class SavedMoviesData{
     return this.api
       .removeMovie(cardData.savedMovieId)
       .then(() => {
-        delete this.movies[cardData.savedMovieId];
+        delete this.movies[cardData.movieId];
         cardData.savedMovieId = null;
       })
   }

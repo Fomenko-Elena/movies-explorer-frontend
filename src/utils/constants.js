@@ -26,7 +26,8 @@ export const ComponentStatus = {
   Initial: 'initial',
   Loading: 'loading',
   Successed: 'successed',
-  Failed: 'failed,'
+  Failed: 'failed',
+  ErrFilter: 'errFilter',
 }
 
 const moviesApiUrl = process.env.REACT_APP_MOVIES_API_URL || 'https://api.nomoreparties.co/beatfilm-movies';

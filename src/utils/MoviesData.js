@@ -23,7 +23,7 @@ export class MoviesData {
 
   loadFromCache() {
     try {
-      this.filter = JSON.parse(localStorage.getItem(StotageFilterItemName)) || DefaultFilter;;
+      this.filter = JSON.parse(localStorage.getItem(StotageFilterItemName)) || DefaultFilter;
       this.cards = JSON.parse(localStorage.getItem(StorageMoviesItemName))
       this._updateSelections();
     } catch(e) {

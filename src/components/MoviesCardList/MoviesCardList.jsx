@@ -15,11 +15,11 @@ function MoviesCardList({
   }
 
   function handleRemoveSelection(data) {
-    return onSelect(data);
+    return onRemove(data);
   }
 
   function handleAddSelection(data) {
-    return onRemove(data);
+    return onSelect(data);
   }
 
   return (

@@ -23,8 +23,6 @@ function MoviesSearch({
   }
 
   function doSearch() {
-    if (!phrase) return;
-
     onFilter({
       phrase,
       shortMovie,

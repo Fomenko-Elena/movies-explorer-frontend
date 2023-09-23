@@ -18,6 +18,7 @@ function MoviesCard({
   }
 
   function handleRemoveClick(e) {
+    onRemove(data);
   }
 
   function handleCardCick(e) {

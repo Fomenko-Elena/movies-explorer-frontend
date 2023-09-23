@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useReducer, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
@@ -6,7 +6,7 @@ import Main from '../Main/Main'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
-import { ComponentStatus, DefaultFilter, LayoutHighlight, noUser } from '../../utils/constants'
+import { LayoutHighlight, noUser } from '../../utils/constants'
 import './App.css'
 import Profile from '../Profile/Profile'
 import Movies from '../Movies/Movies'
@@ -23,9 +23,6 @@ import { savedMoviesData } from '../../utils/SavedMoviesData'
 function App() {
   const [currentUser, setCurrentUser] = useState(noUser)
   const [menuVisible, setMenuVisible] = useState(false)
-  const [moviesStatus, setMoviesStatus] = useState(ComponentStatus.Initial)
-  const [filter, setFilter] = useState(DefaultFilter)
-  const [moviesCards, dispatchMoviesCards] = useReducer(moviesCardsReduced, [])
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -33,23 +30,6 @@ function App() {
   const footerPaths = ['/', '/movies', '/saved-movies']
   const windowSizeContext = useContext(WindowSizeContext)
   const didMount = useMount()
-
-  function moviesCardsReduced(state, action) {
-    switch(action.type) {
-      case 'REPLACE': {
-        return action.cards;
-      }
-      case 'UPDATE': {
-        return state.map((card) => {
-          if (card.movieId === action.card.movieId) {
-            return action.card;
-          } else {
-            return card;
-          }
-        })
-      }
-    }
-  }
 
   function isMobile() {
     return windowSizeContext.width <= 768
@@ -74,30 +54,9 @@ function App() {
 
     savedMoviesData
       .load()
-      .then(() => {
-        moviesData.loadFromCache();
-        setFilter(moviesData.currentFilter);
-
-        navigate('/movies', { replace: true });
-      })
+      .then(() => navigate('/movies', { replace: true }))
       .catch(logErrorHandler)
   }, [currentUser])
-
-  useEffect(() => {
-    if (!didMount) return
-
-    setMoviesStatus(ComponentStatus.Loading);
-    moviesData
-      .filterAsync(filter)
-      .then((cards) => {
-        setMoviesStatus(ComponentStatus.Successed);
-        dispatchMoviesCards({ type: 'REPLACE', cards });
-      })
-      .catch((error) => {
-        setMoviesStatus(ComponentStatus.Failed);
-        logErrorHandler(error);
-      })
-  }, [filter])
 
   function clearData() {
     moviesData.clear();
@@ -145,11 +104,11 @@ function App() {
   }
 
   function handleMenuClose() {
-    setMenuVisible(false)
+    setMenuVisible(false);
   }
 
   function handleFilterMovies(filter) {
-    setFilter(filter)
+    return moviesData.filterAsync(filter);
   }
 
   function handleSaveProfile(profile) {
@@ -157,21 +116,19 @@ function App() {
   }
 
   function handleAddSelection(cardData) {
-    return moviesData
-      .select(cardData)
-      .then((cardData) => {
-        dispatchMoviesCards({ type: 'UPDATE', card: cardData })
-      })
-      .catch(logErrorHandler);
+    return moviesData.select(cardData);
   }
 
   function handleRemoveSelection(cardData) {
-    return moviesData
-      .unselect(cardData)
-      .then((cardData) => {
-        dispatchMoviesCards({ type: 'UPDATE', card: cardData })
-      })
-      .catch(logErrorHandler);
+    return moviesData.unselect(cardData);
+  }
+
+  function handleRemoveSavedMovie(cardData) {
+    return savedMoviesData.unselect(cardData)
+  }
+
+  function handleSavedMoviesFilter(filter) {
+    return savedMoviesData.filterAsync(filter)
   }
 
   function isHeaderVisible() {
@@ -199,19 +156,11 @@ function App() {
           />
           <Route
             path="/movies" 
-            element={
-              <Movies 
-                filter={filter} 
-                onFilter={handleFilterMovies} 
-                componentStatus={moviesStatus} 
-                cards={moviesCards} 
-                onSelect={handleAddSelection}
-                onRemove={handleRemoveSelection}
-              />} 
+            element={<Movies onFilter={handleFilterMovies} onSelect={handleAddSelection} onRemove={handleRemoveSelection}/>} 
           />
           <Route
             path="/saved-movies" 
-            element={<SavedMovies/>} 
+            element={<SavedMovies onFilter={handleSavedMoviesFilter} onRemove={handleRemoveSavedMovie}/>} 
           />
           <Route
             path="/signup"

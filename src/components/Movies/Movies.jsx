@@ -2,29 +2,70 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Layout from "../Layout/Layout";
 import MoviesSearch from "../MoviesSearch/MoviesSearch";
 import Preloader from "../Preloader/Preloader";
-import { ComponentStatus, DefaultCardListSettings, LayoutWidthStyle, CardListSettings } from "../../utils/constants";
-import { useContext, useEffect, useState } from "react";
+import { ComponentStatus, DefaultCardListSettings, LayoutWidthStyle, CardListSettings, DefaultFilter } from "../../utils/constants";
+import { useContext, useEffect, useReducer, useState } from "react";
 import { WindowSizeContext } from "../../contexts/WindowSizeContext";
 import "./Movies.css"
+import { logErrorHandler } from "../../utils/errors";
+import { useMount } from "../../hooks/componentHook";
+import { moviesData } from "../../utils/MoviesData";
 
 function Movies({
-  componentStatus,
-  cards,
-  filter,
   onFilter,
   onSelect,
   onRemove,
 }) {
   const { width } = useContext(WindowSizeContext)
   const [shownCardCount, setShownCardCount] = useState(0)
+  const [componentStatus, setComponentStatus] = useState(ComponentStatus.Initial)
+  const [filter, setFilter] = useState(DefaultFilter)
+  const [cards, dispatchCards] = useReducer(cardsReduced, [])
+  const didMount = useMount()
 
   useEffect(() => {
+    moviesData.loadFromCache();
+    setFilter(moviesData.currentFilter);
+  }, [])
+
+  useEffect(() => {
+    if (!didMount) return;
+
     const { initialCount } = getCurrentCardListSettings();
     setShownCardCount(initialCount)
+
+    setComponentStatus(ComponentStatus.Loading);
+    onFilter(filter)
+      .then((cards) => {
+        setComponentStatus(ComponentStatus.Successed);
+        dispatchCards({ type: 'REPLACE', cards });
+      })
+      .catch((error) => {
+        setComponentStatus(ComponentStatus.Failed);
+        logErrorHandler(error);
+      })
   }, [filter])
 
+  function cardsReduced(state, action) {
+    switch(action.type) {
+      case 'REPLACE': return action.cards;
+      case 'UPDATE': return state.map((card) => 
+      {
+        if (card.movieId === action.card.movieId) {
+          return action.card;
+        } else {
+          return card;
+        }
+      })
+      default: return state
+    }
+  }
+
   function handleFilterChange(filter) {
-    onFilter(filter)
+    if (!filter.phrase) {
+      setComponentStatus(ComponentStatus.ErrFilter)
+    } else {
+      setFilter(filter)
+    }
   }
 
   function handleMore() {
@@ -46,11 +87,19 @@ function Movies({
   }
 
   function handleRemoveSelection(data) {
-    return onSelect(data);
+    return onRemove(data)
+      .then((cardData) => {
+        dispatchCards({ type: 'UPDATE', card: cardData })
+      })
+      .catch(logErrorHandler);
   }
 
   function handleAddSelection(data) {
-    return onRemove(data);
+    return onSelect(data)
+      .then((cardData) => {
+        dispatchCards({ type: 'UPDATE', card: cardData })
+      })
+      .catch(logErrorHandler);
   }
 
   return (
@@ -67,6 +116,7 @@ function Movies({
           onRemove={handleRemoveSelection} />
       }
       {componentStatus === ComponentStatus.Failed && <p className="movies__error">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</p>}
+      {componentStatus === ComponentStatus.ErrFilter && <p className="movies__error">Нужно ввести ключевое слово</p>}
     </Layout>
   )
 }

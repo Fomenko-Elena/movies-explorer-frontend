@@ -1,12 +1,11 @@
-import { useState } from "react"
 import "./MoviesCard.css"
 
 function MoviesCard({
   data,
   isSelectionMode,
+  onSelect,
+  onRemove,
 }) {
-  const [selected, setSelected] = useState(false)
-
   function getDuration() {
     const hours = Math.floor(data.duration / 60);
     const mins = data.duration % 60;
@@ -14,26 +13,30 @@ function MoviesCard({
   }
 
   function handleSelectionChanged(e) {
-    setSelected(!selected);
+    const newSelected = !getSelectedState();
+    if (newSelected) onSelect(data); else onRemove(data);
   }
 
   function handleRemoveClick(e) {
   }
 
   function handleCardCick(e) {
-    if (isSelectionMode) handleSelectionChanged(e); else handleRemoveClick(e)
+  }
+
+  function getSelectedState() {
+    return !!data.savedMovieId;
   }
 
   return (
     <li className="card" onClick={handleCardCick}>
-      <img className="card-image" alt={data.nameRU} src={`https://api.nomoreparties.co/${data.image.url}`}></img>
+      <img className="card-image" alt={data.nameRU} src={data.image}></img>
       <div className="card-footer">
         <div className="card-footer-left">
           <h2 className="card-description">{data.nameRU}</h2>
           <p className="card-duration">{getDuration()}</p>
         </div>
         <div className="card-footer-right">
-          {isSelectionMode && <input type="checkbox" className="card-selection" checked={selected} onChange={handleSelectionChanged}></input>}
+          {isSelectionMode && <input type="checkbox" className="card-selection" checked={getSelectedState()} onChange={handleSelectionChanged}></input>}
           {!isSelectionMode && <input type="button" className="card-remove" onClick={handleRemoveClick}></input>}
         </div>
       </div>

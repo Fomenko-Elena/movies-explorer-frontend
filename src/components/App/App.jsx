@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useReducer, useState } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
@@ -6,7 +6,7 @@ import Main from '../Main/Main'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
-import { ComponentStatus, LayoutHighlight, noUser, predefinedMovies } from '../../utils/constants'
+import { ComponentStatus, DefaultFilter, LayoutHighlight, noUser } from '../../utils/constants'
 import './App.css'
 import Profile from '../Profile/Profile'
 import Movies from '../Movies/Movies'
@@ -16,19 +16,40 @@ import PageNotFound from '../PageNotFound/PageNotFound'
 import { WindowSizeContext } from '../../contexts/WindowSizeContext'
 import { mainApi } from '../../utils/MainApi'
 import { moviesData } from '../../utils/MoviesData'
+import { logErrorHandler } from '../../utils/errors'
+import { useMount } from '../../hooks/componentHook'
+import { savedMoviesData } from '../../utils/SavedMoviesData'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(noUser)
   const [menuVisible, setMenuVisible] = useState(false)
-  const [moviesStatus, setMoviesStatus] = useState(ComponentStatus.Successed)
-  const [filterConditions, setFilterConditions] = useState({ phrase: "", shortMovie: false })
-  const [moviesCards, setMoviesCards] = useState([])
+  const [moviesStatus, setMoviesStatus] = useState(ComponentStatus.Initial)
+  const [filter, setFilter] = useState(DefaultFilter)
+  const [moviesCards, dispatchMoviesCards] = useReducer(moviesCardsReduced, [])
 
   const navigate = useNavigate()
   const location = useLocation()
   const headerPaths = ['/', '/movies', '/saved-movies', '/profile']
   const footerPaths = ['/', '/movies', '/saved-movies']
   const windowSizeContext = useContext(WindowSizeContext)
+  const didMount = useMount()
+
+  function moviesCardsReduced(state, action) {
+    switch(action.type) {
+      case 'REPLACE': {
+        return action.cards;
+      }
+      case 'UPDATE': {
+        return state.map((card) => {
+          if (card.movieId === action.card.movieId) {
+            return action.card;
+          } else {
+            return card;
+          }
+        })
+      }
+    }
+  }
 
   function isMobile() {
     return windowSizeContext.width <= 768
@@ -38,13 +59,58 @@ function App() {
     if (!isMobile() && menuVisible) setMenuVisible(false)
   }, [windowSizeContext])
 
+  useEffect(() => {
+    mainApi
+      .getUser()
+      .then(setCurrentUser)
+      .catch((error) => {
+        logErrorHandler(error);
+        clearData();
+      })
+  }, [])
+
+  useEffect(() => {
+    if (!didMount || currentUser === noUser) return;
+
+    savedMoviesData
+      .load()
+      .then(() => {
+        moviesData.loadFromCache();
+        setFilter(moviesData.currentFilter);
+
+        navigate('/movies', { replace: true });
+      })
+      .catch(logErrorHandler)
+  }, [currentUser])
+
+  useEffect(() => {
+    if (!didMount) return
+
+    setMoviesStatus(ComponentStatus.Loading);
+    moviesData
+      .filterAsync(filter)
+      .then((cards) => {
+        setMoviesStatus(ComponentStatus.Successed);
+        dispatchMoviesCards({ type: 'REPLACE', cards });
+      })
+      .catch((error) => {
+        setMoviesStatus(ComponentStatus.Failed);
+        logErrorHandler(error);
+      })
+  }, [filter])
+
+  function clearData() {
+    moviesData.clear();
+    savedMoviesData.clear();
+  }
+
   function handleSignOut() {
     return mainApi
       .signOut()
       .then(() => {
-        moviesData.clear();
+        clearData();
         setCurrentUser(noUser);
-        navigate('signin', { replace: true });
+        navigate('/', { replace: true });
       })  
   }
 
@@ -70,7 +136,7 @@ function App() {
       .signIn(loginData)
       .then((userData) => {
         setCurrentUser(userData);
-        navigate('/movies', { replace: true })
+        navigate('/movies', { replace: true });
     })
   }
 
@@ -82,24 +148,30 @@ function App() {
     setMenuVisible(false)
   }
 
-  function handleFilterMovies({phrase, shortMovie, count}) {
-    setFilterConditions({
-      phrase,
-      shortMovie
-    })
-
-    setMoviesStatus(ComponentStatus.Loading)
-
-    moviesData
-      .filterAsync({ phrase, shortMovie })
-      .then((cards) => {
-        setMoviesStatus(ComponentStatus.Successed)
-        setMoviesCards(cards)
-      })
+  function handleFilterMovies(filter) {
+    setFilter(filter)
   }
 
   function handleSaveProfile(profile) {
     return Promise.reject({message: 'Test message'})
+  }
+
+  function handleAddSelection(cardData) {
+    return moviesData
+      .select(cardData)
+      .then((cardData) => {
+        dispatchMoviesCards({ type: 'UPDATE', card: cardData })
+      })
+      .catch(logErrorHandler);
+  }
+
+  function handleRemoveSelection(cardData) {
+    return moviesData
+      .unselect(cardData)
+      .then((cardData) => {
+        dispatchMoviesCards({ type: 'UPDATE', card: cardData })
+      })
+      .catch(logErrorHandler);
   }
 
   function isHeaderVisible() {
@@ -127,7 +199,15 @@ function App() {
           />
           <Route
             path="/movies" 
-            element={<Movies filterConditions={filterConditions} onFilter={handleFilterMovies} componentStatus={moviesStatus} cards={moviesCards}/>} 
+            element={
+              <Movies 
+                filter={filter} 
+                onFilter={handleFilterMovies} 
+                componentStatus={moviesStatus} 
+                cards={moviesCards} 
+                onSelect={handleAddSelection}
+                onRemove={handleRemoveSelection}
+              />} 
           />
           <Route
             path="/saved-movies" 

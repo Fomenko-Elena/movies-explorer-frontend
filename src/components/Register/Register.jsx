@@ -5,7 +5,8 @@ import Input from "../Input/Input";
 import Inputs from "../Inputs/Inputs";
 import DialogSubmitSection from "../DialogSubmitSection/DialogSubmitSection";
 import { useFormWithValidation } from "../../hooks/formHooks";
-import { HTTP_ERR_CONFLICT, nameValidationSettiings, validationSchemas } from "../../utils/constants";
+import { HTTP_ERR_CONFLICT, nameValidationSettiings } from "../../utils/constants";
+import { validationSchemas } from "../../utils/validation";
 
 function Register({
   onRegister,

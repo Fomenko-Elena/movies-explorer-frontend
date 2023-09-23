@@ -9,9 +9,6 @@ class MainApi {
     return this._fetch('/signup', {
       method: 'POST',
       body: JSON.stringify(authData),
-      headers: {
-        'Content-Type': 'application/json'
-      }
     })
   }
 
@@ -19,26 +16,33 @@ class MainApi {
     return this._fetch('/signin', {
       method: 'POST',
       body: JSON.stringify(authData),
-      headers: {
-        'Content-Type': 'application/json'
-      }
     })
   }
 
   signOut() {
     return this._fetch('/signout', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
     })
   }
 
   getUser() {
-    return this._fetch('/users/me', {
-      headers: {
-        'Content-Type': 'application/json'
-      }
+    return this._fetch('/users/me')
+  }
+
+  getMovies() {
+    return this._fetch('/movies')
+  }
+
+  addMovie(movie) {
+    return this._fetch('/movies', {
+      method: 'POST',
+      body: JSON.stringify(movie),
+    })
+  }
+
+  removeMovie(movieId) {
+    return this._fetch(`/movies/${movieId}`, {
+      method: 'DELETE',
     })
   }
 

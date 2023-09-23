@@ -32,6 +32,12 @@ function MoviesSearch({
   }
 
   useEffect(() => {
+    const { phrase, shortMovie } = filter
+    setPhrase(phrase)
+    setShortMovie(shortMovie)
+  }, [filter])
+
+  useEffect(() => {
       if (didMount) doSearch()
     }, 
     [shortMovie]);

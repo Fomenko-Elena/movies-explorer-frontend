@@ -6,19 +6,39 @@ function MoviesCardList({
   cards,
   isSelectionMode,
   more,
+  onMore,
+  onSelect,
+  onRemove,
 }) {
+  function handleMore() {
+    return onMore()
+  }
+
+  function handleRemoveSelection(data) {
+    return onSelect(data);
+  }
+
+  function handleAddSelection(data) {
+    return onRemove(data);
+  }
+
   return (
     <>
       <section className="cards">
-        <ul className="card-list">
-          {
-            cards.map((card) => (
-              <MoviesCard key={card.id} data={card} isSelectionMode={isSelectionMode}/>
-            ))
-          }
-        </ul>
+        {cards.length > 0 &&
+          <ul className="card-list">
+            {
+              cards.map((card) => (
+                <MoviesCard key={card.movieId} data={card} isSelectionMode={isSelectionMode} onRemove={handleRemoveSelection} onSelect={handleAddSelection} />
+              ))
+            }
+          </ul>
+        }
+        {cards.length === 0 &&
+          <p className="cards__empty">Ничего не найдено</p>
+        }
       </section>
-      <More more={more}/>
+      <More more={more} onMore={handleMore} />
     </>
   )
 }

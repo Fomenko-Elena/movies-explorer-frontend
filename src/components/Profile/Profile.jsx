@@ -5,9 +5,10 @@ import Input from "../Input/Input";
 import Inputs from "../Inputs/Inputs";
 import DialogHeader from "../DialogHeader/DialogHeader";
 import DialogSubmitSection from "../DialogSubmitSection/DialogSubmitSection";
-import { useForm } from "../../hooks/formHooks";
+import { useFormWithValidation } from "../../hooks/formHooks";
 import { nameValidationSettiings } from "../../utils/constants";
 import { Link } from "react-router-dom"
+import { validationSchemas } from "../../utils/validation";
 
 function Profile({
   user,
@@ -16,9 +17,14 @@ function Profile({
 }) {
   const [isReadOnly, setReadOnly] = useState(true)
   const [error, setError] = useState(null)
-  const [values, handleChange] = useForm({
-    email: user.email || 'pochta@yandex.ru',
-    name: user.name || 'Виталий',
+  const { values, handleChange, errors, isValid } = useFormWithValidation({
+    initialState: {
+      name: user.name,
+      email: user.email,
+    },
+    validationSchema: {
+      email: validationSchemas.email
+    }
   })
 
   function handleSubmit(e) {
@@ -52,6 +58,7 @@ function Profile({
           label="Имя"
           placeholder="Имя"
           value={values.name}
+          error={errors.name}
           onChange={handleChange}
           wide={true}
           isReadOnly={isReadOnly}
@@ -63,6 +70,7 @@ function Profile({
           label="E-mail"
           placeholder="E-mail"
           value={values.email}
+          error={errors.email}
           onChange={handleChange}
           wide={true}
           isReadOnly={isReadOnly}
@@ -78,6 +86,7 @@ function Profile({
         className="profile__submit-section"
         submitText="Сохранить"
         error={error}
+        isValid={isValid && (user.email !== values.email || user.name !== values.name)}
       />}
     </Dialog>
   )

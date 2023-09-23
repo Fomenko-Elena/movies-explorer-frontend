@@ -100,6 +100,15 @@ function App() {
     })
   }
 
+  function handleSaveProfile(profile) {
+    return mainApi
+      .updateUser(profile)
+      .then((userData) => {
+        currentUser.email = userData.email;
+        currentUser.name = userData.name;
+      })
+  }
+
   function handleOpenMenu() {
     setMenuVisible(true)
   }
@@ -110,10 +119,6 @@ function App() {
 
   function handleFilterMovies(filter) {
     return moviesData.filterAsync(filter);
-  }
-
-  function handleSaveProfile(profile) {
-    return Promise.reject({message: 'Test message'})
   }
 
   function handleAddSelection(cardData) {

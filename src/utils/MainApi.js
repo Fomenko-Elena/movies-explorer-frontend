@@ -29,6 +29,13 @@ class MainApi {
     return this._fetch('/users/me')
   }
 
+  updateUser(userData) {
+    return this._fetch('/users/me', {
+      method: 'PATCH',
+      body: JSON.stringify(userData),
+    }) 
+  }
+
   getMovies() {
     return this._fetch('/movies')
   }

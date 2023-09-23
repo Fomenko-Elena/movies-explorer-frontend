@@ -50,6 +50,10 @@
   padding: 0;
 }
 
+.input_wide:focus {
+  padding: 0 5px;
+}
+
 .input__read-only {
   font-size: 13px;
   font-weight: 400;
@@ -82,4 +86,5 @@
 .input-error_wide  {
   grid-column: span 2;
   text-align: right;
+  line-height: 16px;
 }

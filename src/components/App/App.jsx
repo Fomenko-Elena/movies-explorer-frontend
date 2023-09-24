@@ -165,7 +165,7 @@ function App() {
             path="/movies" 
             element={
               <ProtectedRoute
-                loggedIn={currentUser !== noUser}
+              accessible={currentUser !== noUser}
                 component={Movies}
                 onFilter={handleFilterMovies}
                 onSelect={handleAddSelection}
@@ -177,7 +177,7 @@ function App() {
             path="/saved-movies" 
             element={
               <ProtectedRoute
-                loggedIn={currentUser !== noUser}
+                accessible={currentUser !== noUser}
                 component={SavedMovies}
                 onFilter={handleSavedMoviesFilter}
                 onRemove={handleRemoveSavedMovie}
@@ -186,17 +186,31 @@ function App() {
           />
           <Route
             path="/signup"
-            element={<Register onRegister={handleRegister}/>}
+            element={
+              <ProtectedRoute
+                accessible={currentUser === noUser}
+                component={Register}
+                onRegister={handleRegister}
+                navigateTo="/movies"
+              />
+            }
           />
           <Route
             path="/signin"
-            element={<Login onLogin={handleLogin}/>}
+            element={
+              <ProtectedRoute
+                accessible={currentUser === noUser}
+                component={Login}
+                onLogin={handleLogin}
+                navigateTo="/movies"
+              />
+            }
           />
           <Route
             path="/profile"
             element={
               <ProtectedRoute
-                loggedIn={currentUser !== noUser}
+                accessible={currentUser !== noUser}
                 component={Profile}
                 onSignOut={handleSignOut} 
                 onSave={handleSaveProfile} 

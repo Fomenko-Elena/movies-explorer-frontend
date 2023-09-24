@@ -1,29 +1,43 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import DialogWithLogo from "../DialogWithLogo/DialogWithLogo";
 import "./Register.css"
 import Input from "../Input/Input";
 import Inputs from "../Inputs/Inputs";
 import DialogSubmitSection from "../DialogSubmitSection/DialogSubmitSection";
-import { useForm } from "../../hooks/formHooks";
-import { nameValidationSettiings } from "../../utils/constants";
+import { useFormWithValidation } from "../../hooks/formHooks";
+import { HTTP_ERR_CONFLICT, nameValidationSettiings } from "../../utils/constants";
+import { validationSchemas } from "../../utils/validation";
 
 function Register({
   onRegister,
 }) {
-  const [values, handleChange] = useForm(
-    {
+  const { values, handleChange, errors, isValid } = useFormWithValidation({
+    initialState: {
       name: "",
       email: "",
-      password: "123",
+      password: "",
+    },
+    validationSchema: {
+      email: validationSchemas.email
     }
-  )
-  const [error, setError] = useState(null)
+  })
+  const [error, setError] = useState("")
+  const [isSumbitting, setSubmitting] = useState(false)
+
+  useEffect(() => setError(""), [values, errors, isValid])
 
   function handleSubmit(e) {
     e.preventDefault();
 
+    setSubmitting(true)
     onRegister(values)
-      .catch(error => setError(error.message))
+      .catch(error => {
+        if (error.status === HTTP_ERR_CONFLICT) 
+          setError(error.message); 
+        else
+          setError("При регистрации пользоввателя произошла ошибка")
+      })
+      .finally(() => setSubmitting(false));
   }
 
   return (
@@ -35,6 +49,7 @@ function Register({
           label="Имя"
           placeholder="Имя"
           value={values.name}
+          error={errors.name}
           onChange={handleChange}
           { ...nameValidationSettiings } />
         <Input
@@ -43,6 +58,7 @@ function Register({
           label="E-mail"
           placeholder="E-mail"
           value={values.email}
+          error={errors.email}
           onChange={handleChange}
           required={true} />
 
@@ -52,10 +68,12 @@ function Register({
           label="Пароль"
           placeholder="Пароль"
           value={values.password}
+          error={errors.password}
           onChange={handleChange}
           required={true} />
       </Inputs>
-      <DialogSubmitSection 
+      <DialogSubmitSection
+        isValid={isValid && !isSumbitting}
         className="register__submit-section"
         submitText="Зарегистрироваться"
         notes="Уже зарегистрированы?"

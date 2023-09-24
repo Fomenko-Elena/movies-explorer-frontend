@@ -33,7 +33,7 @@ function NavigationMenu({
   }, [isOpened]);
 
   return (
-    <div ref={popupRef} className={classNames('popup', 'popup__navigation-menu', { 'popup_opened': isOpened })} onMouseDown={handleMouseDown}>
+    <section ref={popupRef} className={classNames('popup', 'popup__navigation-menu', { 'popup_opened': isOpened })} onMouseDown={handleMouseDown}>
       <div className="popup__container">
         <button className="popup__close" type="button" onClick={handleClose}></button>
         <nav className="navigation">
@@ -63,7 +63,7 @@ function NavigationMenu({
             onClick={handleClose}/>
         </nav>
       </div>
-    </div>
+    </section>
   )
 }
 

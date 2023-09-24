@@ -5,7 +5,7 @@ function AboutProject({
   forwardedRef,
 }) {
   return (
-    <MainSection forwardedRef={forwardedRef} header="О проекте">
+    <MainSection forwardedRef={forwardedRef} header="О проекте" className="about-project">
       <div className="about-project__table">
         <div className="about-project__column">
           <h2 className="about-project__column-header">Дипломный проект включал 5 этапов</h2>

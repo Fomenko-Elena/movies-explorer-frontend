@@ -10,11 +10,11 @@ function MainSection({
   className
 }) {
   return (
-    <Layout highlight={highlight}>
-      <section ref={forwardedRef} className={classNames('main-section', className)}>
+    <Layout highlight={highlight} component="section" className={className}>
+      <div ref={forwardedRef} className={classNames('main-section', className)}>
         <h1 className="main-section__header">{header}</h1>
         {children}
-      </section>
+      </div>
     </Layout>
   )
 }

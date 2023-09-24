@@ -1,31 +1,48 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Dialog from "../Dialog/Dialog"
 import "./Profile.css";
 import Input from "../Input/Input";
 import Inputs from "../Inputs/Inputs";
 import DialogHeader from "../DialogHeader/DialogHeader";
 import DialogSubmitSection from "../DialogSubmitSection/DialogSubmitSection";
-import { useForm } from "../../hooks/formHooks";
+import { useFormWithValidation } from "../../hooks/formHooks";
 import { nameValidationSettiings } from "../../utils/constants";
 import { Link } from "react-router-dom"
+import { validationSchemas } from "../../utils/validation";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function Profile({
-  user,
-  OnSave,
-  OnSignOut,
+  onSave,
+  onSignOut,
 }) {
   const [isReadOnly, setReadOnly] = useState(true)
   const [error, setError] = useState(null)
-  const [values, handleChange] = useForm({
-    email: user.email || 'pochta@yandex.ru',
-    name: user.name || 'Виталий',
+  const [isSumbitting, setSubmitting] = useState(false)
+  const currentUser = useContext(CurrentUserContext)
+  const { values, resetForm, handleChange, errors, isValid } = useFormWithValidation({
+    initialState: {
+      name: currentUser.name,
+      email: currentUser.email,
+    },
+    validationSchema: {
+      email: validationSchemas.email
+    }
   })
+
+  // useEffect(() => {
+  //   resetForm({
+  //     name: currentUser.name,
+  //     email: currentUser.email,
+  //   })
+  // }, [currentUser])
 
   function handleSubmit(e) {
     e.preventDefault();
-    OnSave(values)
-      .then((profile) => setReadOnly(true))
-      .catch(error => setError(error.message));
+    setSubmitting(true);
+    onSave(values)
+      .then(() => setReadOnly(true))
+      .catch(error => setError(error.message))
+      .finally(() => setSubmitting(false));
   }
 
   function handleEditClick(e) {
@@ -35,13 +52,16 @@ function Profile({
 
   function handleSignoutClick(e) {
     e.preventDefault();
-    OnSignOut();
+    onSignOut()
+      .catch(() => {
+        setError('Ошибка при выходе из аккаунта');
+      })
   }
 
 
   return (
     <Dialog formClass="dialog__form_wide" onSubmit={handleSubmit}>
-      <DialogHeader header={`Привет, ${user.name}!`} wide={true}/>
+      <DialogHeader header={`Привет, ${currentUser.name}!`} wide={true}/>
       <Inputs wide={true}>
         <Input
           name="name"
@@ -49,6 +69,7 @@ function Profile({
           label="Имя"
           placeholder="Имя"
           value={values.name}
+          error={errors.name}
           onChange={handleChange}
           wide={true}
           isReadOnly={isReadOnly}
@@ -60,6 +81,7 @@ function Profile({
           label="E-mail"
           placeholder="E-mail"
           value={values.email}
+          error={errors.email}
           onChange={handleChange}
           wide={true}
           isReadOnly={isReadOnly}
@@ -75,6 +97,7 @@ function Profile({
         className="profile__submit-section"
         submitText="Сохранить"
         error={error}
+        isValid={isValid && (currentUser.email !== values.email || currentUser.name !== values.name) && !isSumbitting}
       />}
     </Dialog>
   )

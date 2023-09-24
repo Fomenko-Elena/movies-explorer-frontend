@@ -6,7 +6,7 @@ import Main from '../Main/Main'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
-import { ComponentStatus, LayoutHighlight, noUser, predefinedMovies } from '../../utils/constants'
+import { LayoutHighlight, noUser } from '../../utils/constants'
 import './App.css'
 import Profile from '../Profile/Profile'
 import Movies from '../Movies/Movies'
@@ -14,18 +14,23 @@ import SavedMovies from '../SavedMovies/SavedMovies'
 import NavigationMenu from '../NavigationMenu/NavigationMenu'
 import PageNotFound from '../PageNotFound/PageNotFound'
 import { WindowSizeContext } from '../../contexts/WindowSizeContext'
+import { mainApi } from '../../utils/MainApi'
+import { moviesData } from '../../utils/MoviesData'
+import { logErrorHandler } from '../../utils/errors'
+import { useMount } from '../../hooks/componentHook'
+import { savedMoviesData } from '../../utils/SavedMoviesData'
+import ProtectedRoute from '../ProptectedRoute/ProtectedRoute'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(noUser)
   const [menuVisible, setMenuVisible] = useState(false)
-  const [moviesStatus, setMoviesStatus] = useState(ComponentStatus.Loading)
-  const [filteredMovies, setFilteredMovies] = useState([])
 
   const navigate = useNavigate()
   const location = useLocation()
   const headerPaths = ['/', '/movies', '/saved-movies', '/profile']
   const footerPaths = ['/', '/movies', '/saved-movies']
   const windowSizeContext = useContext(WindowSizeContext)
+  const didMount = useMount()
 
   function isMobile() {
     return windowSizeContext.width <= 768
@@ -35,32 +40,74 @@ function App() {
     if (!isMobile() && menuVisible) setMenuVisible(false)
   }, [windowSizeContext])
 
+  useEffect(() => {
+    mainApi
+      .getUser()
+      .then(setCurrentUser)
+      .catch((error) => {
+        logErrorHandler(error);
+        clearData();
+      })
+  }, [])
+
+  useEffect(() => {
+    if (!didMount || currentUser === noUser) return;
+
+    savedMoviesData
+      .load()
+      .then(() => navigate('/movies', { replace: true }))
+      .catch(logErrorHandler)
+  }, [currentUser])
+
+  function clearData() {
+    moviesData.clear();
+    savedMoviesData.clear();
+  }
+
   function handleSignOut() {
-    setCurrentUser(noUser);
-    navigate('/signin', { replace: true });
+    return mainApi
+      .signOut()
+      .then(() => {
+        clearData();
+        setCurrentUser(noUser);
+        navigate('/', { replace: true });
+      })  
   }
 
   function handleRegister(registrationData) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        reject({message: 'Test error'})
-      }, 500)
-    })
+    return mainApi
+      .signUp(registrationData)
+      .then((userData) => {
+        return mainApi
+            .signIn({ 
+              email: registrationData.email,
+              password: registrationData.password 
+            })
+            .then(() => userData)
+      })
+      .then((userData) => {
+          setCurrentUser(userData);
+          navigate('/movies', { replace: true })
+      })
   }
 
   function handleLogin(loginData) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const userData = { 
-          _id: 1,
-          name: 'Виталий',
-          email: loginData.email
-        };
+    return mainApi
+      .signIn(loginData)
+      .then(() => mainApi.getUser())
+      .then((userData) => {
         setCurrentUser(userData);
-        navigate('/', { replace: true });
-        resolve(userData);
-      }, 500)
+        navigate('/movies', { replace: true });
     })
+  }
+
+  function handleSaveProfile(profile) {
+    return mainApi
+      .updateUser(profile)
+      .then((userData) => {
+        currentUser.email = userData.email;
+        currentUser.name = userData.name;
+      })
   }
 
   function handleOpenMenu() {
@@ -68,21 +115,27 @@ function App() {
   }
 
   function handleMenuClose() {
-    setMenuVisible(false)
+    setMenuVisible(false);
   }
 
-  function handleFilterMovies() {
-    if (filteredMovies.length) return;
-
-    setMoviesStatus(ComponentStatus.Loading)
-    setTimeout(() => {
-      setMoviesStatus(ComponentStatus.Successed);
-      setFilteredMovies(predefinedMovies);
-    }, 500)
+  function handleFilterMovies(filter) {
+    return moviesData.filterAsync(filter);
   }
 
-  function handleSaveProfile(profile) {
-    return Promise.reject({message: 'Test message'})
+  function handleAddSelection(cardData) {
+    return moviesData.select(cardData);
+  }
+
+  function handleRemoveSelection(cardData) {
+    return moviesData.unselect(cardData);
+  }
+
+  function handleRemoveSavedMovie(cardData) {
+    return savedMoviesData.unselect(cardData)
+  }
+
+  function handleSavedMoviesFilter(filter) {
+    return savedMoviesData.filterAsync(filter)
   }
 
   function isHeaderVisible() {
@@ -110,23 +163,59 @@ function App() {
           />
           <Route
             path="/movies" 
-            element={<Movies OnFilter={handleFilterMovies} componentStatus={moviesStatus} cards={filteredMovies}/>} 
+            element={
+              <ProtectedRoute
+              accessible={currentUser !== noUser}
+                component={Movies}
+                onFilter={handleFilterMovies}
+                onSelect={handleAddSelection}
+                onRemove={handleRemoveSelection}
+              />
+            }
           />
           <Route
             path="/saved-movies" 
-            element={<SavedMovies/>} 
+            element={
+              <ProtectedRoute
+                accessible={currentUser !== noUser}
+                component={SavedMovies}
+                onFilter={handleSavedMoviesFilter}
+                onRemove={handleRemoveSavedMovie}
+              />
+            }
           />
           <Route
             path="/signup"
-            element={<Register onRegister={handleRegister}/>}
+            element={
+              <ProtectedRoute
+                accessible={currentUser === noUser}
+                component={Register}
+                onRegister={handleRegister}
+                navigateTo="/movies"
+              />
+            }
           />
           <Route
             path="/signin"
-            element={<Login onLogin={handleLogin}/>}
+            element={
+              <ProtectedRoute
+                accessible={currentUser === noUser}
+                component={Login}
+                onLogin={handleLogin}
+                navigateTo="/movies"
+              />
+            }
           />
           <Route
             path="/profile"
-            element={<Profile OnSignOut={handleSignOut} OnSave={handleSaveProfile} user={currentUser}/>}
+            element={
+              <ProtectedRoute
+                accessible={currentUser !== noUser}
+                component={Profile}
+                onSignOut={handleSignOut} 
+                onSave={handleSaveProfile} 
+              />
+            }
           />
           <Route
             path="*"

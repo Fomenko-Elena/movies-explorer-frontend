@@ -1,34 +1,44 @@
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import film1Path from "../../images/film-1.jfif"
-import film2Path from "../../images/film-2.jfif"
-import film3Path from "../../images/film-3.jfif"
 import Layout from "../Layout/Layout";
 import MoviesSearch from "../MoviesSearch/MoviesSearch";
+import { DefaultFilter } from "../../utils/constants";
+import { useEffect, useState } from "react";
+import { logErrorHandler } from "../../utils/errors";
 
-function SavedMovies() {
+function SavedMovies({
+  onFilter,
+  onRemove,
+}) {
+  const [filter, setFilter] = useState(DefaultFilter)
+  const [cards, setCards] = useState([])
+ 
+  useEffect(() => {
+    filterCards(filter)
+  }, [])
+
+  function handleFilterChange(filter) {
+    setFilter(filter);
+    return filterCards(filter);
+  }
+
+  function filterCards(filter) {
+    return onFilter(filter)
+      .then((cards) => {
+        setCards(cards);
+      })
+      .catch(logErrorHandler)
+  }
+
+  function handleRemoveSelection(data) {
+    return onRemove(data)
+      .then(() => filterCards(filter))
+      .catch(logErrorHandler)
+  }
+
   return (
-    <Layout>
-      <MoviesSearch/>
-      <MoviesCardList isSelectionMode={false} more={false} cards={[
-        {
-          _id: "01",
-          trailerLink: film1Path,
-          description: "33 слова о дизайне 9304 14908 12049 103294 031249 ",
-          duration: 120
-        },
-        {
-          _id: "02",
-          trailerLink: film2Path,
-          description: "33 слова о дизайне 9304 14908 12049 103294 031249 ",
-          duration: 125
-        },
-        {
-          _id: "03",
-          trailerLink: film3Path,
-          description: "33 слова о дизайне 9304 14908 12049 103294 031249 ",
-          duration: 120
-        },
-      ]}/>
+    <Layout component="main" className="saved-movies">
+      <MoviesSearch onFilter={handleFilterChange} filter={filter}/>
+      <MoviesCardList isSelectionMode={false} more={false} cards={cards} onRemove={handleRemoveSelection}/>
     </Layout>
   )
 }

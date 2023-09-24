@@ -1,22 +1,42 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import DialogWithLogo from "../DialogWithLogo/DialogWithLogo"
 import "./Login.css"
 import Input from "../Input/Input"
 import Inputs from "../Inputs/Inputs"
 import DialogSubmitSection from "../DialogSubmitSection/DialogSubmitSection"
-import { useForm } from "../../hooks/formHooks"
+import { useFormWithValidation } from "../../hooks/formHooks"
+import { HTTP_ERR_UNAUTHORIZED } from "../../utils/constants"
+import { validationSchemas } from "../../utils/validation"
 
 function Login({
   onLogin,
 }) {
-  const [values, handleChange] = useForm({ email: "", password: "" })
-  const [error, setError] = useState(null)
+  const { values, handleChange, errors, isValid } = useFormWithValidation({
+    initialState: {
+      email: "",
+      password: "",
+    },
+    validationSchema: {
+      email: validationSchemas.email
+    }
+  })
+  const [error, setError] = useState("")
+  const [isSumbitting, setSubmitting] = useState(false)
+
+  useEffect(() => setError(""), [values, errors, isValid])
 
   function handleSubmit(e) {
     e.preventDefault();
 
+    setSubmitting(true)
     onLogin(values)
-      .catch(error => setError(error.message));
+      .catch(error => {
+        if (error.status === HTTP_ERR_UNAUTHORIZED) 
+          setError('Вы ввели неправильный логин или пароль');
+        else
+          setError('При авторизации произошла ошибка');
+      })
+      .finally(() => setSubmitting(false));
   }
 
   return (
@@ -28,6 +48,7 @@ function Login({
           label="E-mail"
           placeholder="E-mail"
           value={values.email}
+          error={errors.email}
           onChange={handleChange}
           wide={false}
           required={true} />
@@ -38,10 +59,12 @@ function Login({
           label="Пароль"
           placeholder="Пароль"
           value={values.password}
+          error={errors.password}
           onChange={handleChange}
           required={true} />
       </Inputs>
       <DialogSubmitSection
+        isValid={isValid && !isSumbitting}
         className="login__submit-section"
         submitText="Войти"
         notes="Ещё не зарегистрированы?"

@@ -99,7 +99,7 @@ function Movies({
       .then((cardData) => {
         dispatchCards({ type: 'UPDATE', card: cardData })
       })
-      .catch(logErrorHandler);
+      .catch(logErrorHandler)
   }
 
   return (

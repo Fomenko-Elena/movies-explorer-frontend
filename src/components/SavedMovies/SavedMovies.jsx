@@ -11,7 +11,7 @@ function SavedMovies({
 }) {
   const [filter, setFilter] = useState(DefaultFilter)
   const [cards, setCards] = useState([])
-
+ 
   useEffect(() => {
     filterCards(filter)
   }, [])
@@ -32,6 +32,7 @@ function SavedMovies({
   function handleRemoveSelection(data) {
     return onRemove(data)
       .then(() => filterCards(filter))
+      .catch(logErrorHandler)
   }
 
   return (

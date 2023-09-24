@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Dialog from "../Dialog/Dialog"
 import "./Profile.css";
 import Input from "../Input/Input";
@@ -9,29 +9,40 @@ import { useFormWithValidation } from "../../hooks/formHooks";
 import { nameValidationSettiings } from "../../utils/constants";
 import { Link } from "react-router-dom"
 import { validationSchemas } from "../../utils/validation";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function Profile({
-  user,
   onSave,
   onSignOut,
 }) {
   const [isReadOnly, setReadOnly] = useState(true)
   const [error, setError] = useState(null)
-  const { values, handleChange, errors, isValid } = useFormWithValidation({
+  const [isSumbitting, setSubmitting] = useState(false)
+  const currentUser = useContext(CurrentUserContext)
+  const { values, resetForm, handleChange, errors, isValid } = useFormWithValidation({
     initialState: {
-      name: user.name,
-      email: user.email,
+      name: currentUser.name,
+      email: currentUser.email,
     },
     validationSchema: {
       email: validationSchemas.email
     }
   })
 
+  // useEffect(() => {
+  //   resetForm({
+  //     name: currentUser.name,
+  //     email: currentUser.email,
+  //   })
+  // }, [currentUser])
+
   function handleSubmit(e) {
     e.preventDefault();
+    setSubmitting(true);
     onSave(values)
-      .then((profile) => setReadOnly(true))
-      .catch(error => setError(error.message));
+      .then(() => setReadOnly(true))
+      .catch(error => setError(error.message))
+      .finally(() => setSubmitting(false));
   }
 
   function handleEditClick(e) {
@@ -50,7 +61,7 @@ function Profile({
 
   return (
     <Dialog formClass="dialog__form_wide" onSubmit={handleSubmit}>
-      <DialogHeader header={`Привет, ${user.name}!`} wide={true}/>
+      <DialogHeader header={`Привет, ${currentUser.name}!`} wide={true}/>
       <Inputs wide={true}>
         <Input
           name="name"
@@ -86,7 +97,7 @@ function Profile({
         className="profile__submit-section"
         submitText="Сохранить"
         error={error}
-        isValid={isValid && (user.email !== values.email || user.name !== values.name)}
+        isValid={isValid && (currentUser.email !== values.email || currentUser.name !== values.name) && !isSumbitting}
       />}
     </Dialog>
   )

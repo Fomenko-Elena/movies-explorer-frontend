@@ -22,12 +22,14 @@ function Register({
     }
   })
   const [error, setError] = useState("")
+  const [isSumbitting, setSubmitting] = useState(false)
 
   useEffect(() => setError(""), [values, errors, isValid])
 
   function handleSubmit(e) {
     e.preventDefault();
 
+    setSubmitting(true)
     onRegister(values)
       .catch(error => {
         if (error.status === HTTP_ERR_CONFLICT) 
@@ -35,6 +37,7 @@ function Register({
         else
           setError("При регистрации пользоввателя произошла ошибка")
       })
+      .finally(() => setSubmitting(false));
   }
 
   return (
@@ -70,7 +73,7 @@ function Register({
           required={true} />
       </Inputs>
       <DialogSubmitSection
-        isValid={isValid}
+        isValid={isValid && !isSumbitting}
         className="register__submit-section"
         submitText="Зарегистрироваться"
         notes="Уже зарегистрированы?"

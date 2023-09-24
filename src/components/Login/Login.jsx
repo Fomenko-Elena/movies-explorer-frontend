@@ -21,19 +21,22 @@ function Login({
     }
   })
   const [error, setError] = useState("")
+  const [isSumbitting, setSubmitting] = useState(false)
 
   useEffect(() => setError(""), [values, errors, isValid])
 
   function handleSubmit(e) {
     e.preventDefault();
 
+    setSubmitting(true)
     onLogin(values)
       .catch(error => {
         if (error.status === HTTP_ERR_UNAUTHORIZED) 
           setError('Вы ввели неправильный логин или пароль');
         else
           setError('При авторизации произошла ошибка');
-      });
+      })
+      .finally(() => setSubmitting(false));
   }
 
   return (
@@ -61,7 +64,7 @@ function Login({
           required={true} />
       </Inputs>
       <DialogSubmitSection
-        isValid={isValid}
+        isValid={isValid && !isSumbitting}
         className="login__submit-section"
         submitText="Войти"
         notes="Ещё не зарегистрированы?"

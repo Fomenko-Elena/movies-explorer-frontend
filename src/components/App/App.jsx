@@ -94,6 +94,7 @@ function App() {
   function handleLogin(loginData) {
     return mainApi
       .signIn(loginData)
+      .then(() => mainApi.getUser())
       .then((userData) => {
         setCurrentUser(userData);
         navigate('/movies', { replace: true });
@@ -199,7 +200,6 @@ function App() {
                 component={Profile}
                 onSignOut={handleSignOut} 
                 onSave={handleSaveProfile} 
-                user={currentUser}
               />
             }
           />
